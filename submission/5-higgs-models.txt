@@ -1,0 +1,39 @@
+higgs-realtime  (wss://api.boson.ai/v1/realtime)
+Used four distinct ways, and it is the backbone of the whole project.
+
+1. The interviewer's voice. A persistent session that conducts the interview in English on
+   the founder's behalf, one question per turn, adapting as it goes.
+
+2. The interviewer's ears. The participant's answer is pushed back into that same session as
+   raw audio (input_audio_buffer.append / commit) with no response generated — so the
+   interviewer hears the actual delivery and never a transcript. This is what lets the
+   follow-up react to HOW something was said. A speech-to-text pipeline cannot do this,
+   because the delivery is gone before the agent sees the turn.
+
+3. Tool calling, mid-turn. The interviewer calls lookup_competitor during the conversation to
+   fetch the real current US price of whatever brand the participant just named, then asks
+   them to choose between the two products at those real prices.
+
+4. Text modality (output_modalities: ["text"]). Writes the founder's report — the verdict,
+   the recommended actions, and the honest limits — from the measured prosody values. It is
+   never allowed to invent a number, only to interpret ones we computed.
+
+It also plays the simulated respondent when running without a live participant (main.py with
+no --live), so the whole interview is two Higgs Realtime sessions passing audio to each other.
+
+Measured latency to first audio across a full run: 460–930 ms.
+
+
+higgs-stt-3.1  (POST /v1/audio/transcriptions)
+Transcribes the live human participant. Deliberately off the conversational path — it runs
+only so the founder's report can quote what was said. The interviewer itself never sees its
+output.
+
+
+GET /v1/models
+Used during development to discover what was available on the account.
+
+
+Not used, but the obvious next step: Avatar Studio. Turning the participant into a face would
+make this a video interview the founder can actually watch, which is what a real research
+readout looks like.

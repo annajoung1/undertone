@@ -1,0 +1,13 @@
+Prosody is a control signal here, not a dashboard. The measurement changes what the agent does next, inside the same conversation: the words stay positive, the delivery falls below that speaker's own norm, and the interviewer asks a harder question on its own.
+
+Making that honest was the hard part.
+
+Absolute thresholds fail. A 75 is not a low score. It is only a signal against a 96 baseline from the same person, so every answer is normalized to the speaker rather than to a scale.
+
+A single axis fails too. We measured Higgs TTS going flat on pitch range (15.1 to 7.5 semitones) and a real human going flat on speaking rate (2.07 to 1.21 words per second) while their pitch range actually rose. People flatten differently, so any axis falling 25% below their own peak counts.
+
+The browser nearly killed it. autoGainControl and noiseSuppression normalize loudness and dynamics, erasing the exact signal being measured. Audio is captured completely raw.
+
+Two Higgs Realtime sessions pass PCM directly to each other, and tool calls fire mid-turn against real US prices.
+
+Two separate surfaces, because a participant who can see their own score stops being a participant.
