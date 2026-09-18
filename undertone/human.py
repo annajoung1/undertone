@@ -1,7 +1,7 @@
-"""진짜 사람 응답자. 인터뷰어 질문을 스피커로 들려주고, 마이크로 답을 받는다.
+"""A real person answering into a microphone.
 
-시뮬레이션 응답자와 동일한 인터페이스(hear_audio -> Turn)를 제공하므로
-오케스트레이터는 상대가 사람인지 AI인지 몰라도 된다.
+Exposes the same interface as a simulated respondent (hear_audio -> Turn), so the
+orchestrator never needs to know whether it is talking to a person or a model.
 """
 import io, json, os, re, urllib.request, wave
 
@@ -27,7 +27,7 @@ def _transcribe(pcm: bytes) -> str:
         body.append(head.encode() + b"\r\n" + (val if isinstance(val, bytes) else val.encode()) + b"\r\n")
     part("file", buf.getvalue(), "a.wav", "audio/wav")
     part("model", "higgs-stt-3.1")
-    part("language", "en")          # 중국어로 잘못 전사되는 것 방지
+    part("language", "en")          # otherwise short clips get mis-detected
     part("response_format", "json")
     body.append(f"--{boundary}--\r\n".encode())
     req = urllib.request.Request(
@@ -37,17 +37,17 @@ def _transcribe(pcm: bytes) -> str:
     try:
         with urllib.request.urlopen(req, timeout=45) as r:
             txt = json.loads(r.read()).get("text", "").strip()
-        # 한자/가나가 섞여 오면 전사가 언어를 오인한 것 — 버린다
+        # CJK characters mean the transcriber misidentified the language - drop them
         if txt and re.search(r"[\u3040-\u30ff\u4e00-\u9fff]", txt):
             txt = re.sub(r"[\u3040-\u30ff\u4e00-\u9fff]+", "", txt).strip()
         return txt
     except Exception as e:
-        print(f"  [STT 실패] {type(e).__name__}: {e}", flush=True)
+        print(f"  [transcription failed] {type(e).__name__}: {e}", flush=True)
         return ""
 
 
 class HumanRespondent:
-    """마이크 앞의 실제 사람."""
+    """A real person at a microphone."""
     speaker = "respondent"
 
     def __init__(self, max_seconds=25):
@@ -60,11 +60,11 @@ class HumanRespondent:
         if question_pcm:
             sd.play(np.frombuffer(question_pcm, dtype="<i2"), SR); sd.wait()
 
-        input("\n  \033[1m[Enter] 답변 시작\033[0m")
+        input("\n  \033[1m[Enter] to answer\033[0m")
         frames = []
         stream = sd.InputStream(samplerate=SR, channels=1, dtype="int16")
         stream.start()
-        print("  \033[31m🔴 녹음중\033[0m — 끝나면 [Enter]")
+        print("  \033[31m🔴 recording\033[0m — [Enter] when done")
         import threading
         stop = threading.Event()
         threading.Thread(target=lambda: (input(), stop.set()), daemon=True).start()

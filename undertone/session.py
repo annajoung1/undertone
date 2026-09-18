@@ -1,7 +1,7 @@
-"""Higgs Realtime 세션 래퍼. 인터뷰어와 응답자가 각각 하나씩 갖는다.
+"""A Higgs Realtime session. The interviewer holds one; a simulated respondent holds another.
 
-오디오를 그대로 주고받는다 — 전사를 거쳐 텍스트로 넘기지 않는다.
-그게 이 제품의 전제다. 텍스트로 넘기는 순간 톤이 사라진다.
+Audio is passed between them as audio. It is never transcribed and handed over as text.
+That is the premise of the product: the moment it becomes text, the delivery is gone.
 """
 import asyncio, base64, json, os, time
 from dataclasses import dataclass, field
@@ -12,7 +12,7 @@ import market, tone
 
 URL = "wss://api.boson.ai/v1/realtime?model=higgs-realtime"
 SR = 24000
-CHUNK = SR * 2 // 5          # 0.2초
+CHUNK = SR * 2 // 5          # 0.2s
 
 
 @dataclass
@@ -34,7 +34,7 @@ class Session:
         self.speaker = speaker
         self.instructions = instructions
         self.tools = tools or []
-        self.measure = measure          # 응답자 쪽만 운율을 측정한다
+        self.measure = measure          # only the respondent side gets measured
         self.ws = None
 
     async def __aenter__(self):
@@ -65,14 +65,14 @@ class Session:
         await self.ws.send(json.dumps(obj))
 
     async def say_text(self, text: str) -> Turn:
-        """텍스트 지시를 주고 발화를 받는다 (인터뷰어에게 '이걸 물어봐'라고 시킬 때)."""
+        """Give a directive, get speech back. Used to tell the interviewer what to ask."""
         await self._send({"type": "conversation.item.create", "item": {
             "type": "message", "role": "user",
             "content": [{"type": "input_text", "text": text}]}})
         return await self._collect()
 
     async def hear_audio(self, pcm: bytes) -> Turn:
-        """상대의 발화 오디오를 그대로 듣고 응답한다. 전사를 거치지 않는다."""
+        """Hear the other side's raw audio and respond. Nothing is transcribed."""
         for i in range(0, len(pcm), CHUNK):
             await self._send({"type": "input_audio_buffer.append",
                               "audio": base64.b64encode(pcm[i:i + CHUNK]).decode()})
@@ -80,7 +80,12 @@ class Session:
         return await self._collect()
 
     async def listen_only(self, pcm: bytes):
-        """상대 발화를 맥락에 넣되 응답은 만들지 않는다 (인터뷰어가 답변을 '듣는' 용도)."""
+        """Add the other side's audio to context without generating a reply.
+
+        This is how the interviewer hears an answer. It receives the audio itself and
+        never the transcript, which is what lets the follow-up decision be made on
+        delivery rather than on words alone.
+        """
         for i in range(0, len(pcm), CHUNK):
             await self._send({"type": "input_audio_buffer.append",
                               "audio": base64.b64encode(pcm[i:i + CHUNK]).decode()})

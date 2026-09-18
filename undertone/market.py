@@ -1,7 +1,7 @@
-"""경쟁 제품 실가격 조회. 페르소나가 대화 중 tool call 로 호출한다.
+"""Competitor price lookup, called as a tool mid-conversation.
 
-Tavily 키가 있으면 실시간 검색, 없으면 큐레이션된 실제 시장가로 폴백한다.
-폴백도 '지어낸 값'이 아니라 실제 미국 유통가다 — 그 점을 리포트에 명시한다.
+With a Tavily key it searches live. Without one it falls back to a curated table of real
+US retail prices - not invented numbers. The report always states which source was used.
 """
 import json, os, urllib.request
 
@@ -13,7 +13,7 @@ TAVILY_KEY = os.environ.get("TAVILY_API_KEY", "").strip()
 
 
 def lookup_competitor(query: str) -> dict:
-    """경쟁 제품의 현재 미국 판매가를 찾는다."""
+    """Find the current US retail price of a competing product."""
     if TAVILY_KEY:
         try:
             req = urllib.request.Request(
@@ -33,9 +33,9 @@ def lookup_competitor(query: str) -> dict:
             if hits:
                 return {"source": "tavily_live_search", "query": query, "results": hits}
         except Exception as e:
-            pass  # 폴백으로 내려간다
+            pass  # fall through to the curated table
 
-    # 폴백: 큐레이션된 실제 미국 시장가
+    # Fallback: curated real US retail prices
     q = query.lower()
     hits = [{"product": k, "us_price_usd": v}
             for k, v in _ANCHORS.items()

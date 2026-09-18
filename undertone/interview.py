@@ -1,9 +1,11 @@
-"""인터뷰 오케스트레이터.
+"""The interview loop.
 
-인터뷰어와 응답자가 각각 Higgs Realtime 세션을 갖고, **오디오를 그대로 주고받는다.**
-응답자의 발화는 운율이 측정되고, 말과 톤이 어긋나면 인터뷰어가 자동으로 파고든다.
+The interviewer and the respondent each hold a session and pass audio between them. Every
+answer is measured for prosody, and when the words and the delivery disagree, the
+interviewer automatically asks a harder follow-up.
 
-이 루프가 이 제품의 전부다. 톤 데이터가 없으면 루프 자체가 성립하지 않는다.
+That loop is the whole product. Without the prosody measurement there is nothing to
+trigger the follow-up, and without speech-to-speech there is nothing to measure.
 """
 import asyncio, time
 
@@ -91,9 +93,9 @@ async def run(on_event=lambda *a, **k: None, live=False, respondent=None) -> Rec
             on_event("answer", step=step["id"], text=a.text.strip(),
                      prosody=a.prosody, signal=sig, turn=a)
 
-            await itv.listen_only(a.pcm)   # 인터뷰어도 실제 오디오로 듣는다
+            await itv.listen_only(a.pcm)   # the interviewer hears the audio, not a transcript
 
-            # --- 톤이 트리거하는 추가 질문 -----------------------------------
+            # --- the follow-up that prosody triggers ---------------------------
             if sig["mismatch"] and step.get("probe_target"):
                 on_event("probe_triggered", reason=sig["why"])
 
@@ -112,7 +114,7 @@ async def run(on_event=lambda *a, **k: None, live=False, respondent=None) -> Rec
                 await itv.listen_only(pa.pcm)
 
             if step["id"] == "satisfaction":
-                # 파고든 뒤의 마지막 답을 기준으로 만족 여부를 판단한다
+                # judge satisfaction on the last answer, i.e. after any follow-up
                 last = rec.turns[-1]
                 satisfied = not (last["signal"] and last["signal"]["words"]["label"]
                                  in ("negative", "hedged_positive"))

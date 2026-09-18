@@ -1,15 +1,17 @@
-"""말(내용)과 톤(운율)의 불일치를 판정한다.
+"""Detects disagreement between what someone said and how they said it.
 
-원칙: 감정을 추측하지 않는다. 두 개의 독립된 관찰을 나란히 놓고 어긋나는지만 본다.
-  - 관찰 A: 어휘.   긍정어를 썼나? 완충어(hedge)를 썼나?
-  - 관찰 B: 운율.   실제로 톤이 올라갔나? (tone.py 가 오디오에서 측정)
+The rule here is to never guess at emotion. Two independent observations are placed side
+by side, and only their disagreement is reported:
+  - Observation A: the words.    Positive? Hedged?
+  - Observation B: the delivery. Measured from the audio by tone.py.
 
-둘이 어긋나면 그게 신호다. 어느 쪽이 '진실'인지는 주장하지 않는다.
-대신 인터뷰어가 더 파고들어서 확인하게 만든다. 확인된 답이 진실이다.
+When the two disagree, that is the signal. This module does not decide which one is true.
+It makes the interviewer ask a harder follow-up instead. The answer to that follow-up is
+the truth.
 """
 import re
 
-# 예의상 긍정 — 미국 영어에서 '나쁘지 않다'의 완곡어법
+# Polite positives - how American English says "not bad" without saying it
 HEDGES = [
     "nice", "fine", "okay", "ok", "pretty good", "not bad", "interesting",
     "decent", "alright", "i guess", "kind of", "kinda", "sort of", "i mean",
@@ -32,7 +34,7 @@ def _hits(text, table):
 
 
 def classify_words(text: str) -> dict:
-    """어휘만 보고 분류한다. 오디오는 보지 않는다."""
+    """Classifies the words only. Never looks at the audio."""
     h, s, n = _hits(text, HEDGES), _hits(text, STRONG_POS), _hits(text, NEGATIVE)
     if n and not s:
         label = "negative"
@@ -46,12 +48,18 @@ def classify_words(text: str) -> dict:
 
 
 class Baseline:
-    """화자 본인의 기준선.
+    """A speaker's own baseline.
 
-    사람마다 '시큰둥함'이 다른 축에 나타난다. 실측에서 확인한 것:
-      - Higgs TTS 는 피치 변동폭으로 갈렸다 (15.1 st -> 7.5 st)
-      - 실제 사람은 발화 속도로 갈렸다 (2.07 w/s -> 1.21 w/s, 피치는 오히려 올라감)
-    그래서 한 축만 보면 놓친다. 어느 축이든 본인 기준선에서 크게 벗어나면 잡는다.
+    Different people go flat along different axes. Both of these were measured, not assumed:
+      - Higgs TTS separated on pitch range      (15.1 st -> 7.5 st)
+      - A real human separated on speaking rate (2.07 w/s -> 1.21 w/s, while their
+        pitch range actually went UP)
+    Watching a single axis therefore misses people. Any axis that falls well below this
+    speaker's own peak counts as a drop.
+
+    This is also why no absolute threshold is used anywhere. A score of 75 is not low. It
+    is a signal only because it sits 21 points under what this particular person normally
+    sounds like.
     """
 
     def __init__(self, drop: int):
@@ -75,7 +83,7 @@ class Baseline:
         return self._peak(0)
 
     def deviations(self, prosody):
-        """각 축이 본인 최고치 대비 몇 % 떨어졌는지."""
+        """How far each axis has fallen, in percent, from this speaker's own peak."""
         if not self.samples or not prosody:
             return {}
         out = {}
@@ -94,7 +102,7 @@ _LABEL = {"engagement": "overall engagement", "speech_rate": "speaking rate",
 
 
 def check_mismatch(text: str, prosody, baseline: "Baseline") -> dict:
-    """어휘와 운율이 어긋나는지 본다. 판정 기준은 언제나 화자 자신이다."""
+    """Compares words against delivery. The reference is always the speaker themselves."""
     w = classify_words(text)
     eng = getattr(prosody, "engagement", None)
     base = baseline.value if baseline else None
@@ -108,7 +116,7 @@ def check_mismatch(text: str, prosody, baseline: "Baseline") -> dict:
         return {**out, "why": "establishing this speaker's baseline",
                 "reading": "baseline"}
 
-    # 어느 축이든 25% 이상 떨어지면 '평소보다 죽은 발화'로 본다
+    # A fall of 25% or more on any axis counts as flatter than this person's norm
     dropped = {k: v for k, v in dev.items() if v["pct"] <= -25}
     delta = dev.get("engagement", {}).get("now", eng) - base
     out["delta"] = round(delta)

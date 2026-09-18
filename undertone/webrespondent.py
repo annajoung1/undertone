@@ -1,7 +1,7 @@
-"""브라우저를 응답자로 쓰는 어댑터.
+"""Adapter that puts the respondent in a browser.
 
-Session / HumanRespondent 와 동일한 인터페이스(hear_audio -> Turn)를 제공하므로
-오케스트레이터는 응답자가 어디에 있는지 몰라도 된다.
+Same interface as Session and HumanRespondent (hear_audio -> Turn), so the orchestrator
+does not care where the person on the other side actually is.
 """
 import asyncio, base64, json
 
@@ -23,7 +23,7 @@ class WebRespondent:
     async def __aexit__(self, *a): pass
 
     async def hear_audio(self, question_pcm: bytes) -> Turn:
-        # 질문 오디오를 브라우저로 보내 재생시키고, 답변 녹음을 기다린다
+        # send the question audio to the browser, then wait for the recorded answer
         await self.ws.send(json.dumps({
             "type": "listen",
             "audio": base64.b64encode(question_pcm).decode() if question_pcm else "",

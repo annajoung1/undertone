@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Undertone 웹 서버. 브라우저가 응답자, Python 이 오케스트레이터."""
+"""Undertone web server. The browser holds the respondent; Python runs the interview."""
 import asyncio, base64, functools, http.server, json, os, socketserver, sys, threading, time, wave
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "undertone"))
@@ -34,8 +34,8 @@ async def handler(ws):
             m = json.loads(raw)
             if m["type"] == "start" and not running:
                 running = True
-                # 새 인터뷰가 시작되면 이전 결과를 지운다 — 리포트 화면이 빈 상태로 시작해야
-                # 인터뷰가 끝나는 순간 채워지는 게 보인다.
+                # Clear the previous result so the report page starts empty and visibly
+                # fills in the moment this interview finishes.
                 old = os.path.join(WEB, "session.json")
                 if os.path.exists(old):
                     os.remove(old)
@@ -62,7 +62,7 @@ async def run_interview(ws, resp):
             payload["tool_calls"] = turn.tool_calls
         if kind == "start":
             payload.update(product=config.PRODUCT,
-                           respondent="🎤 실제 인터뷰 참여자")
+                           respondent="live participant")
         await ws.send(json.dumps(payload, ensure_ascii=False, default=str))
 
     loop = asyncio.get_running_loop()
@@ -77,7 +77,7 @@ async def run_interview(ws, resp):
         for f in os.listdir(AUDIO):
             os.remove(os.path.join(AUDIO, f))
 
-        # 턴별 오디오를 따로 저장 — 대표가 실제 목소리를 재생할 수 있어야 한다
+        # Save each turn separately so the founder can play back the actual voice
         for n, t in enumerate(rec.turns):
             if not t["pcm"]:
                 continue
@@ -117,7 +117,8 @@ async def run_interview(ws, resp):
 async def main():
     threading.Thread(target=serve_static, daemon=True).start()
     print(f"\n  \033[1mUndertone\033[0m")
-    print(f"  브라우저에서 열기 →  \033[36mhttp://localhost:{HTTP_PORT}\033[0m\n")
+    print(f"  open  \033[36mhttp://localhost:{HTTP_PORT}\033[0m            (interview)")
+    print(f"  open  \033[36mhttp://localhost:{HTTP_PORT}/report.html\033[0m  (founder report)\n")
     async with websockets.serve(handler, "localhost", WS_PORT, max_size=None):
         await asyncio.Future()
 

@@ -1,7 +1,8 @@
-"""대표에게 가는 한국어 리포트.
+"""The report the founder receives.
 
-측정값(운율)은 계산으로, 서술은 Higgs 텍스트 모드로 만든다.
-숫자는 절대 모델이 만들지 않는다 — 측정된 값만 들어간다.
+Every number in it is measured. The prose around those numbers is written by Higgs in
+text mode, and the model is never allowed to invent a figure - it only ever interprets
+values that were computed from the audio.
 """
 import asyncio, html, json, os, re, time
 
@@ -52,7 +53,7 @@ _FOREIGN = re.compile(r"[\u3040-\u30ff\u4e00-\u9fff\u0400-\u04ff]+")
 
 
 def _clean(t: str) -> str:
-    """모델이 간혹 섞는 일본어/중국어/키릴 문자를 제거한다."""
+    """Strip stray CJK/Cyrillic characters the model occasionally mixes in."""
     return _FOREIGN.sub("", t)
 
 
@@ -62,7 +63,7 @@ async def build(rec, path):
     answers = [t for t in turns if t["speaker"] == "respondent" and t["text"]]
     tools = [tc for t in turns for tc in t["tool_calls"]]
 
-    # 번역과 종합 판단을 동시에 돌린다 (순차로 하면 두 배 걸린다)
+    # Clean-up and analysis run concurrently; sequentially this takes twice as long
     ko_task = _ask_text(
         "You clean up verbatim consumer research answers. Fix transcription errors and "
         "obvious mis-hearings. Output ENGLISH ONLY — if an answer came back in another "
@@ -111,7 +112,7 @@ async def build(rec, path):
                  [_clean(str(a)) for a in v.get("actions", [])][:3],
                  _clean(str(v.get("limits", "")))]
     except Exception:
-        # JSON 이 깨지면 줄 단위로라도 건져낸다
+        # If the JSON is malformed, salvage what we can line by line
         lines = [l.strip() for l in (verdict or "").splitlines() if l.strip()]
         acts = [l.lstrip("-•* ").strip() for l in lines if l.lstrip().startswith(("-", "•", "*"))]
         rest = [l for l in lines if not l.lstrip().startswith(("-", "•", "*"))]
@@ -136,21 +137,21 @@ def _html(rec, turns, mismatches, tools, parts, path):
             continue
         if t["speaker"] == "interviewer":
             cls = "probe" if t.get("probe") else "q"
-            lbl = "추가 질문 (톤이 발동)" if t.get("probe") else "질문"
+            lbl = "Follow-up (triggered by tone)" if t.get("probe") else "Asked"
             rows.append(f'<div class="turn {cls}"><div class="lbl">{lbl}</div>'
                         f'<div class="en">{html.escape(t["text"])}</div></div>')
         else:
             pr = t.get("prosody") or {}
             sg = t.get("signal") or {}
-            warn = (f'<div class="warn">⚠ 말과 톤이 어긋남 — {html.escape(sg.get("why",""))}</div>'
+            warn = (f'<div class="warn">⚠ Words and tone disagree — {html.escape(sg.get("why",""))}</div>'
                     if sg.get("mismatch") else "")
             met = ""
             if pr:
                 met = (f'<div class="m">{_gauge(pr["engagement"])}'
-                       f'<span class="mm">피치폭 {pr["pitch_range_st"]} st · '
-                       f'속도 {pr["speech_rate_wps"]} w/s · 휴지 {int(pr["pause_ratio"]*100)}%</span></div>'
+                       f'<span class="mm">pitch range {pr["pitch_range_st"]} st · '
+                       f'{pr["speech_rate_wps"]} words/s · {int(pr["pause_ratio"]*100)}% pause</span></div>'
                        f'<div class="rd">{html.escape(sg.get("reading",""))}</div>')
-            rows.append(f'<div class="turn a"><div class="lbl">답변</div>'
+            rows.append(f'<div class="turn a"><div class="lbl">Participant</div>'
                         f'<div class="en">{html.escape(t["text"])}</div>'
                         f'<div class="ko">{html.escape(t.get("ko",""))}</div>{met}{warn}</div>')
 
@@ -161,12 +162,12 @@ def _html(rec, turns, mismatches, tools, parts, path):
             for r in tc["result"]["results"][:3]:
                 items.append(f'<li>{html.escape(str(r.get("product", r.get("title",""))))} '
                              f'— <b>${r.get("us_price_usd","?")}</b></li>')
-        tool_html = (f'<div class="card"><h2>대화 중 조회된 실제 경쟁 가격</h2>'
+        tool_html = (f'<div class="card"><h2>Real competitor prices looked up mid-conversation</h2>'
                      f'<ul class="tl">{"".join(items)}</ul>'
-                     f'<div class="src">출처: {html.escape(tools[0]["result"]["source"])}</div></div>')
+                     f'<div class="src">source: {html.escape(tools[0]["result"]["source"])}</div></div>')
 
     doc = f"""<!doctype html><meta charset="utf-8">
-<title>Undertone — 인터뷰 리포트</title>
+<title>Undertone — Interview Report</title>
 <style>
 :root{{--bg:#fafaf9;--fg:#1c1917;--mut:#78716c;--line:#e7e5e4;--card:#fff}}
 *{{box-sizing:border-box}}
@@ -203,26 +204,27 @@ padding:8px 11px;border-radius:7px;font-size:13px}}
 .probe{{background:#2a1f35}} .warn{{background:#2a1416;border-color:#7f1d1d;color:#fca5a5}}}}
 </style>
 <div class="wrap">
-<h1>인터뷰 리포트</h1>
-<div class="sub">{html.escape(p['item'])} · ${p['price_being_tested_usd']} / 10장 ·
-{html.escape(p['seeded_for'])} 시딩 · 응답자 1명 · {time.strftime('%Y-%m-%d %H:%M')}</div>
+<h1>Interview report</h1>
+<div class="sub">{html.escape(p['item'])} · ${p['price_being_tested_usd']} / 10-pack ·
+seeded {html.escape(p['seeded_for'])} · 1 participant · {time.strftime('%Y-%m-%d %H:%M')}</div>
 
-<div class="card"><h2>결론</h2><div class="lead">{html.escape(parts[0])}</div></div>
+<div class="card"><h2>What you need to know</h2><div class="lead">{html.escape(parts[0])}</div></div>
 
-<div class="card"><h2>그래서 뭘 해야 하나</h2>
+<div class="card"><h2>What to do about it</h2>
 <ul class="acts">{''.join(f'<li>{html.escape(a)}</li>' for a in parts[1])}</ul></div>
 
 {tool_html}
 
-<div class="card"><h2>인터뷰 전문 · 톤 측정</h2>{''.join(rows)}</div>
+<div class="card"><h2>What they said — and how they said it</h2>{''.join(rows)}</div>
 
-<div class="card"><h2>이 인터뷰가 알려주지 못하는 것</h2>
+<div class="card"><h2>What this interview cannot tell you</h2>
 <div class="limit">{html.escape(parts[2])}</div></div>
 
 <div class="ft">
-톤 점수는 응답 오디오에서 직접 측정한 운율 지표입니다 — 피치 변동폭(55%), 발화 속도(25%), 휴지 비율(20%).
-감정을 단정하지 않고, 말한 내용과 어긋나는 지점만 표시합니다.<br>
-Undertone · 측정 Higgs Realtime · 전사 higgs-stt-3.1
+Tone scores are prosodic measurements taken directly from the response audio — pitch range (55%),
+speaking rate (25%), pause ratio (20%) — compared against this speaker's own baseline, not an
+absolute scale. Undertone does not claim to detect emotion.<br>
+Conversation and analysis: Higgs Realtime · Transcription: higgs-stt-3.1
 </div>
 </div>"""
     with open(path, "w") as f:

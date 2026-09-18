@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Undertone — 한국 브랜드를 대신해 미국 소비자를 인터뷰하고, 말이 아니라 톤을 읽는다."""
+"""Undertone - interviews US consumers on a founder's behalf and reads how they said it.
+
+Run with --live to answer into a microphone yourself, or --play to hear the audio.
+"""
 import asyncio, json, os, sys, time, wave
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "undertone"))
@@ -8,7 +11,7 @@ import config, interview, report
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "example_outputs")
 PLAY = "--play" in sys.argv
-LIVE = "--live" in sys.argv   # 진짜 사람이 응답자
+LIVE = "--live" in sys.argv   # a real person answers instead of a simulated one
 
 C = dict(dim="\033[2m", b="\033[1m", r="\033[0m", cy="\033[36m", ye="\033[33m",
          gr="\033[32m", rd="\033[31m", mg="\033[35m", gy="\033[90m")
@@ -30,51 +33,50 @@ def play(pcm):
 def on_event(kind, **kw):
     if kind == "start":
         print(f"\n{C['b']}━━━ UNDERTONE ━━━{C['r']}")
-        print(f"{C['dim']}대표 브리핑 (한국어){C['r']}\n  {kw['founder_brief']}\n")
+        print(f"{C['dim']}Founder brief, spoken in Korean{C['r']}\n  {kw['founder_brief']}\n")
         p = config.PRODUCT
-        print(f"{C['dim']}대상  {p['item']} · ${p['price_being_tested_usd']} · "
-              f"{p['seeded_for']} 시딩{C['r']}")
-        who = "🎤 실제 인터뷰 참여자 (마이크)" if LIVE else f"{config.RESPONDENT['name']} · {config.RESPONDENT['label']} (시뮬레이션)"
-        print(f"{C['dim']}응답자 {who}{C['r']}")
+        print(f"{C['dim']}Product    {p['item']} · ${p['price_being_tested_usd']} · "
+              f"seeded {p['seeded_for']}{C['r']}")
+        who = "live participant (microphone)" if LIVE else f"{config.RESPONDENT['name']} (simulated)"
+        print(f"{C['dim']}Respondent {who}{C['r']}")
         print(f"{C['dim']}{'─'*66}{C['r']}")
 
     elif kind == "question":
-        tag = f"{C['mg']}▸ PROBE{C['r']}" if kw.get("probe") else f"{C['cy']}▸ 인터뷰어{C['r']}"
+        tag = f"{C['mg']}▸ FOLLOW-UP{C['r']}" if kw.get("probe") else f"{C['cy']}▸ Interviewer{C['r']}"
         print(f"\n{tag}  {C['gy']}({kw['turn'].first_audio_ms}ms){C['r']}")
         print(f"  {kw['text']}")
         play(kw["turn"].pcm)
 
     elif kind == "answer":
-        print(f"\n{C['ye']}◂ {config.RESPONDENT['name']}{C['r']}")
+        print(f"\n{C['ye']}◂ Participant{C['r']}")
         print(f"  {kw['text']}")
         play(kw["turn"].pcm)
         pr, sg = kw["prosody"], kw["signal"]
         if pr:
-            print(f"\n  {C['dim']}톤 측정{C['r']}  {bar(pr.engagement)} {pr.engagement:>3}"
-                  f"   {C['gy']}속도 {pr.speech_rate_wps} w/s · "
-                  f"피치폭 {pr.pitch_range_st} st · 휴지 {int(pr.pause_ratio*100)}%{C['r']}")
-            print(f"  {C['dim']}판정{C['r']}     {pr.reading}")
+            print(f"\n  {C['dim']}prosody{C['r']}  {bar(pr.engagement)} {pr.engagement:>3}"
+                  f"   {C['gy']}{pr.speech_rate_wps} words/s · "
+                  f"pitch range {pr.pitch_range_st} st · {int(pr.pause_ratio*100)}% pause{C['r']}")
+            print(f"  {C['dim']}reading{C['r']}  {sg.get('reading','') if sg else ''}")
         if sg and sg["mismatch"]:
-            print(f"  {C['rd']}{C['b']}⚠  말-톤 불일치{C['r']}  {sg['why']}")
+            print(f"  {C['rd']}{C['b']}⚠  words and tone disagree{C['r']}  {sg['why']}")
         if kw["turn"].tool_calls:
             for t in kw["turn"].tool_calls:
                 res = t["result"]
-                print(f"  {C['gr']}🔍 조회{C['r']}   \"{t['args'].get('query','')}\" "
+                print(f"  {C['gr']}🔍 lookup{C['r']} \"{t['args'].get('query','')}\" "
                       f"→ {C['gy']}{res['source']}{C['r']}")
                 for h in res["results"][:3]:
                     print(f"           {C['gy']}{h.get('product', h.get('title',''))}: "
                           f"${h.get('us_price_usd','?')}{C['r']}")
 
     elif kind == "probe_triggered":
-        print(f"\n  {C['mg']}{C['b']}↳ 톤이 추가 질문을 발동시킴{C['r']}")
+        print(f"\n  {C['mg']}{C['b']}↳ prosody triggered a deeper follow-up{C['r']}")
 
     elif kind == "satisfaction_decided":
-        print(f"\n  {C['dim']}만족도 판정 → {'긍정' if kw['satisfied'] else '부정'} "
-              f"(다음 질문 분기){C['r']}")
+        print(f"\n  {C['dim']}satisfied → {kw['satisfied']} (branches the next question){C['r']}")
 
     elif kind == "done":
         print(f"\n{C['dim']}{'─'*66}{C['r']}")
-        print(f"{C['dim']}턴 {kw['turns']}개 · 도구호출 {kw['tools']}회{C['r']}")
+        print(f"{C['dim']}{kw['turns']} turns · {kw['tools']} tool calls{C['r']}")
 
 
 async def main():
@@ -82,7 +84,7 @@ async def main():
     rec = await interview.run(on_event, live=LIVE)
     os.makedirs(OUT, exist_ok=True)
 
-    # 전체 인터뷰 오디오 하나로 저장 (심사위원이 들을 수 있게)
+    # Save the whole interview as one file so it can be listened to end to end
     allpcm = b"".join(t["pcm"] for t in rec.turns)
     with wave.open(f"{OUT}/interview.wav", "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(24000); w.writeframes(allpcm)
@@ -93,14 +95,13 @@ async def main():
                    "respondent": config.RESPONDENT["label"], "turns": data},
                   f, ensure_ascii=False, indent=2)
 
-    print(f"\n{C['dim']}리포트 생성중...{C['r']}")
+    print(f"\n{C['dim']}writing the report...{C['r']}")
     parts = await report.build(rec, f"{OUT}/report.html")
-    print(f"\n{C['b']}결론{C['r']}  {parts[0]}")
-    for l in parts[1].splitlines():
-        if l.strip().startswith("-"):
-            print(f"  {C['rd']}·{C['r']} {l.lstrip('- ').strip()}")
+    print(f"\n{C['b']}Verdict{C['r']}  {parts[0]}")
+    for a in (parts[1] if isinstance(parts[1], list) else []):
+        print(f"  {C['rd']}·{C['r']} {a}")
 
-    print(f"\n저장: example_outputs/interview.wav ({len(allpcm)/48000:.0f}초), interview.json, report.html")
-    print(f"총 {time.time()-t0:.0f}초 소요\n")
+    print(f"\nwrote example_outputs/ — interview.wav ({len(allpcm)/48000:.0f}s), interview.json, report.html")
+    print(f"{time.time()-t0:.0f}s total\n")
 
 asyncio.run(main())
