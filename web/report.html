@@ -94,9 +94,13 @@ function toolBox(t){
     <br>${rows}<br><span style="font-size:11px;opacity:.7">source: ${esc(t.result.source)}</span></div>`;
 }
 
-fetch("session.json?"+Date.now()).then(r=>{
+let lastStamp=null;
+function load(){
+ return fetch("session.json?"+Date.now()).then(r=>{
   if(!r.ok)throw 0;return r.json();
-}).then(d=>{
+ }).then(d=>{
+  if(d.generated_at===lastStamp)return;   // 바뀐 게 없으면 다시 그리지 않는다
+  lastStamp=d.generated_at;
   const turns=d.turns||[];
   let body="",pendingQ=null;
   turns.forEach(t=>{
@@ -161,10 +165,13 @@ fetch("session.json?"+Date.now()).then(r=>{
 
   requestAnimationFrame(()=>document.querySelectorAll(".gb").forEach(
     b=>b.style.width=b.dataset.w+"%"));
-}).catch(()=>{
+ }).catch(()=>{
+  if(lastStamp)return;
   document.getElementById("app").innerHTML=
-    `<div class="empty">No interview yet.<br><br>
-     <span style="font-size:13px">Run an interview at
-     <a href="/" style="color:inherit">localhost:8000</a> first.</span></div>`;
-});
+    `<div class="empty">Waiting for the interview to finish…<br><br>
+     <span style="font-size:13px">This page updates itself the moment it's done.</span></div>`;
+ });
+}
+load();
+setInterval(load, 2000);   // 인터뷰가 끝나면 스스로 갱신된다
 </script>
