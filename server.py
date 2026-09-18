@@ -34,6 +34,11 @@ async def handler(ws):
             m = json.loads(raw)
             if m["type"] == "start" and not running:
                 running = True
+                # 새 인터뷰가 시작되면 이전 결과를 지운다 — 리포트 화면이 빈 상태로 시작해야
+                # 인터뷰가 끝나는 순간 채워지는 게 보인다.
+                old = os.path.join(WEB, "session.json")
+                if os.path.exists(old):
+                    os.remove(old)
                 asyncio.create_task(run_interview(ws, resp))
             elif m["type"] == "answer_audio":
                 await resp.inbox.put(base64.b64decode(m["audio"]))
