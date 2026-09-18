@@ -15,40 +15,43 @@
   "turns": [
     {
       "speaker": "interviewer",
-      "text": "How often did you use the masks over the two weeks, and did you finish the whole pack?",
+      "text": "How often did you actually use the masks over the two weeks, and did you finish the whole pack?",
       "prosody": null,
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 449
+      "first_audio_ms": 444
     },
     {
       "speaker": "respondent",
-      "text": "I used them about once or twice a week, so I ended up with four left over.",
+      "text": "I used them a few times, maybe four or five over the two weeks. I didn't finish the whole pack, but I did try a good number of them.",
       "prosody": {
-        "duration_s": 4.52,
-        "speech_rate_wps": 3.76,
-        "pause_ratio": 0.349,
-        "pitch_median_hz": 216.2,
-        "pitch_range_st": 12.21,
-        "energy_cv": 0.512,
-        "engagement": 88,
+        "duration_s": 8.76,
+        "speech_rate_wps": 3.31,
+        "pause_ratio": 0.366,
+        "pitch_median_hz": 187.5,
+        "pitch_range_st": 11.53,
+        "energy_cv": 0.561,
+        "engagement": 83,
         "reading": "톤이 올라감 — 실제로 관심 있음"
       },
       "signal": {
-        "mismatch": false,
         "words": {
-          "label": "neutral",
+          "label": "negative",
           "hedges": [],
           "strong": [],
-          "negative": []
+          "negative": [
+            "didn't"
+          ]
         },
-        "engagement": 88,
-        "why": "어휘(neutral)와 톤(engagement 88)이 일치"
+        "engagement": 83,
+        "baseline": null,
+        "mismatch": false,
+        "why": "기준선 수집 중 (engagement 83)"
       },
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 1026
+      "first_audio_ms": 915
     },
     {
       "speaker": "interviewer",
@@ -57,39 +60,39 @@
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 801
+      "first_audio_ms": 761
     },
     {
       "speaker": "respondent",
-      "text": "They were nice to use, yeah. The fit around the nose was a little loose, but it was still a pleasant routine.",
+      "text": "I liked using them, yeah. They felt nice on my skin, and I appreciated the variety of scents.",
       "prosody": {
-        "duration_s": 7.2,
-        "speech_rate_wps": 3.06,
-        "pause_ratio": 0.366,
-        "pitch_median_hz": 205.1,
-        "pitch_range_st": 13.13,
-        "energy_cv": 0.531,
-        "engagement": 87,
+        "duration_s": 6.44,
+        "speech_rate_wps": 2.8,
+        "pause_ratio": 0.266,
+        "pitch_median_hz": 208.7,
+        "pitch_range_st": 9.72,
+        "energy_cv": 0.58,
+        "engagement": 79,
         "reading": "톤이 올라감 — 실제로 관심 있음"
       },
       "signal": {
-        "mismatch": false,
         "words": {
-          "label": "negative",
+          "label": "hedged_positive",
           "hedges": [
             "nice"
           ],
           "strong": [],
-          "negative": [
-            "loose"
-          ]
+          "negative": []
         },
-        "engagement": 87,
-        "why": "부정적 내용을 톤도 실어서 말함 (engagement 87) — 진심으로 보임"
+        "engagement": 79,
+        "baseline": 83,
+        "mismatch": false,
+        "delta": -4,
+        "why": "어휘(hedged_positive)와 톤이 일치 (79, 기준선 83)"
       },
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 512
+      "first_audio_ms": 539
     },
     {
       "speaker": "interviewer",
@@ -98,78 +101,85 @@
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 929
+      "first_audio_ms": 568
     },
     {
       "speaker": "respondent",
-      "text": "The essence dried out a bit faster than I expected, so I had to be careful not to let it sit too long.",
+      "text": "The essence dried out a bit faster than I expected, so I had to be careful not to let it sit too long. The fit around the nose was also a little loose, which made them shift a bit while I was wearing them.",
       "prosody": {
-        "duration_s": 6.56,
-        "speech_rate_wps": 3.51,
-        "pause_ratio": 0.281,
-        "pitch_median_hz": 205.1,
-        "pitch_range_st": 10.01,
-        "energy_cv": 0.523,
-        "engagement": 80,
+        "duration_s": 12.4,
+        "speech_rate_wps": 3.55,
+        "pause_ratio": 0.275,
+        "pitch_median_hz": 184.6,
+        "pitch_range_st": 10.76,
+        "energy_cv": 0.506,
+        "engagement": 85,
         "reading": "톤이 올라감 — 실제로 관심 있음"
       },
       "signal": {
-        "mismatch": false,
         "words": {
           "label": "negative",
           "hedges": [],
           "strong": [],
           "negative": [
-            "dried out"
+            "dried out",
+            "loose"
           ]
         },
-        "engagement": 80,
-        "why": "부정적 내용을 톤도 실어서 말함 (engagement 80) — 진심으로 보임"
+        "engagement": 85,
+        "baseline": 83,
+        "mismatch": false,
+        "delta": 2,
+        "why": "부정적 내용을 톤도 실어서 말함 (85) — 진심으로 보임"
       },
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 484
+      "first_audio_ms": 514
     },
     {
       "speaker": "interviewer",
-      "text": "What would need to change for you to buy these masks?",
+      "text": "What would need to change for you to actually buy these masks?",
       "prosody": null,
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 666
+      "first_audio_ms": 781
     },
     {
       "speaker": "respondent",
-      "text": "I'd probably need to see a better seal around the nose and maybe a longer-lasting essence.",
+      "text": "I'd probably need to see a better seal around the nose and maybe a more lasting essence. Also, if the price were lower, that would definitely make me consider buying them.",
       "prosody": {
-        "duration_s": 5.88,
-        "speech_rate_wps": 2.72,
-        "pause_ratio": 0.222,
-        "pitch_median_hz": 186.0,
-        "pitch_range_st": 10.03,
-        "energy_cv": 0.505,
-        "engagement": 84,
+        "duration_s": 11.08,
+        "speech_rate_wps": 2.8,
+        "pause_ratio": 0.274,
+        "pitch_median_hz": 192.0,
+        "pitch_range_st": 11.23,
+        "energy_cv": 0.556,
+        "engagement": 89,
         "reading": "톤이 올라감 — 실제로 관심 있음"
       },
       "signal": {
-        "mismatch": false,
         "words": {
-          "label": "neutral",
+          "label": "strong_positive",
           "hedges": [],
-          "strong": [],
+          "strong": [
+            "definitely"
+          ],
           "negative": []
         },
-        "engagement": 84,
-        "why": "어휘(neutral)와 톤(engagement 84)이 일치"
+        "engagement": 89,
+        "baseline": 85,
+        "mismatch": false,
+        "delta": 4,
+        "why": "어휘(strong_positive)와 톤이 일치 (89, 기준선 85)"
       },
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 568
+      "first_audio_ms": 611
     },
     {
       "speaker": "interviewer",
-      "text": "How do these compare to Mediheal or Dr. Jart+ masks you've used before, especially at their usual price points?",
+      "text": "How does this compare to the Mediheal masks you usually buy for $3 a sheet?",
       "prosody": null,
       "signal": null,
       "probe": false,
@@ -177,11 +187,11 @@
         {
           "name": "lookup_competitor",
           "args": {
-            "query": "Korean sheet masks"
+            "query": "COSRX snail mucin sheet mask"
           },
           "result": {
             "source": "curated_us_market_prices_2026",
-            "query": "Korean sheet masks",
+            "query": "COSRX snail mucin sheet mask",
             "results": [
               {
                 "product": "Mediheal (per sheet)",
@@ -199,44 +209,44 @@
           }
         }
       ],
-      "first_audio_ms": 461
+      "first_audio_ms": 468
     },
     {
       "speaker": "respondent",
-      "text": "Compared to Mediheal at $3 or Dr. Jart+ at $7, these feel like a solid mid-range option. The fit and drying time are just a bit different, but the experience is still pretty good.",
+      "text": "Compared to the Mediheal masks I usually buy for $3.30 a sheet, these feel a bit less premium. The Mediheals have a tighter seal and the essence lasts longer, which I really like.",
       "prosody": {
-        "duration_s": 14.64,
-        "speech_rate_wps": 2.32,
-        "pause_ratio": 0.297,
+        "duration_s": 12.08,
+        "speech_rate_wps": 2.73,
+        "pause_ratio": 0.275,
         "pitch_median_hz": 200.0,
-        "pitch_range_st": 8.92,
-        "energy_cv": 0.533,
-        "engagement": 64,
-        "reading": "중립 — 예의상 반응에 가까움"
+        "pitch_range_st": 9.12,
+        "energy_cv": 0.476,
+        "engagement": 73,
+        "reading": "톤이 올라감 — 실제로 관심 있음"
       },
       "signal": {
-        "mismatch": false,
         "words": {
-          "label": "hedged_positive",
-          "hedges": [
-            "pretty good"
-          ],
+          "label": "neutral",
+          "hedges": [],
           "strong": [],
           "negative": []
         },
-        "engagement": 64,
-        "why": "어휘(hedged_positive)와 톤(engagement 64)이 일치"
+        "engagement": 73,
+        "baseline": 89,
+        "mismatch": false,
+        "delta": -16,
+        "why": "어휘(neutral)와 톤이 일치 (73, 기준선 89)"
       },
       "probe": false,
       "tool_calls": [
         {
           "name": "lookup_competitor",
           "args": {
-            "query": "Mediheal N.M.F. Hydrogel Mask price"
+            "query": "Mediheal masks"
           },
           "result": {
             "source": "curated_us_market_prices_2026",
-            "query": "Mediheal N.M.F. Hydrogel Mask price",
+            "query": "Mediheal masks",
             "results": [
               {
                 "product": "Mediheal (per sheet)",
@@ -244,25 +254,9 @@
               }
             ]
           }
-        },
-        {
-          "name": "lookup_competitor",
-          "args": {
-            "query": "Dr. Jart+ Ceramidin Hydrogel Mask price"
-          },
-          "result": {
-            "source": "curated_us_market_prices_2026",
-            "query": "Dr. Jart+ Ceramidin Hydrogel Mask price",
-            "results": [
-              {
-                "product": "Dr. Jart+ (per sheet)",
-                "us_price_usd": 7
-              }
-            ]
-          }
         }
       ],
-      "first_audio_ms": 414
+      "first_audio_ms": 495
     }
   ]
 }

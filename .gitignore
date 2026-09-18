@@ -6,3 +6,4 @@ __pycache__/
 !demo_assets/*.wav
 probe_*.py
 smoke_test.py
+example_outputs/*.wav

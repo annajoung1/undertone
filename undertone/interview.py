@@ -48,6 +48,7 @@ class Recorder:
 async def run(on_event=lambda *a, **k: None, live=False) -> Recorder:
     rec = Recorder()
     satisfied = None
+    baseline = signals.Baseline(config.ENGAGEMENT_DROP)
 
     itv = Session("interviewer", INTERVIEWER_INSTRUCTIONS, tools=[market.TOOL_SPEC])
     if live:
@@ -78,7 +79,8 @@ async def run(on_event=lambda *a, **k: None, live=False) -> Recorder:
             on_event("question", step=step["id"], text=q.text.strip(), turn=q)
 
             a = await resp.hear_audio(q.pcm)
-            sig = signals.check_mismatch(a.text, a.prosody, config.FLAT_ENGAGEMENT)
+            sig = signals.check_mismatch(a.text, a.prosody, baseline)
+            baseline.observe(getattr(a.prosody, 'engagement', None))
             rec.add("respondent", a, signal=sig)
             on_event("answer", step=step["id"], text=a.text.strip(),
                      prosody=a.prosody, signal=sig, turn=a)
@@ -95,7 +97,8 @@ async def run(on_event=lambda *a, **k: None, live=False) -> Recorder:
                          text=pq.text.strip(), turn=pq, probe=True)
 
                 pa = await resp.hear_audio(pq.pcm)
-                psig = signals.check_mismatch(pa.text, pa.prosody, config.FLAT_ENGAGEMENT)
+                psig = signals.check_mismatch(pa.text, pa.prosody, baseline)
+                baseline.observe(getattr(pa.prosody, 'engagement', None))
                 rec.add("respondent", pa, signal=psig, probe=True)
                 on_event("answer", step=step["id"] + "_probe", text=pa.text.strip(),
                          prosody=pa.prosody, signal=psig, turn=pa, probe=True)
