@@ -1,0 +1,268 @@
+{
+  "product": {
+    "brand": "Korean sheet mask brand (SMB, first US launch)",
+    "item": "10-sheet hydrating sheet mask pack",
+    "seeded_for": "2 weeks",
+    "price_being_tested_usd": 32,
+    "category_anchors_usd": {
+      "Mediheal (per sheet)": 3,
+      "Abib (per sheet)": 4,
+      "Dr. Jart+ (per sheet)": 7
+    }
+  },
+  "brief_ko": "저희 시트마스크 10장 팩을 미국 소비자분들께 2주간 시딩했습니다. 제일 궁금한 건 실제로 좋았는지, 기대했던 거랑 뭐가 달랐는지예요. 괜찮았다면 얼마까지 낼 수 있는지도 듣고 싶습니다.",
+  "respondent": "28 · Brooklyn · Sephora + Amazon",
+  "turns": [
+    {
+      "speaker": "interviewer",
+      "text": "How often did you use the masks over the two weeks, and did you finish the whole pack?",
+      "prosody": null,
+      "signal": null,
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 449
+    },
+    {
+      "speaker": "respondent",
+      "text": "I used them about once or twice a week, so I ended up with four left over.",
+      "prosody": {
+        "duration_s": 4.52,
+        "speech_rate_wps": 3.76,
+        "pause_ratio": 0.349,
+        "pitch_median_hz": 216.2,
+        "pitch_range_st": 12.21,
+        "energy_cv": 0.512,
+        "engagement": 88,
+        "reading": "톤이 올라감 — 실제로 관심 있음"
+      },
+      "signal": {
+        "mismatch": false,
+        "words": {
+          "label": "neutral",
+          "hedges": [],
+          "strong": [],
+          "negative": []
+        },
+        "engagement": 88,
+        "why": "어휘(neutral)와 톤(engagement 88)이 일치"
+      },
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 1026
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Did you like using the masks?",
+      "prosody": null,
+      "signal": null,
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 801
+    },
+    {
+      "speaker": "respondent",
+      "text": "They were nice to use, yeah. The fit around the nose was a little loose, but it was still a pleasant routine.",
+      "prosody": {
+        "duration_s": 7.2,
+        "speech_rate_wps": 3.06,
+        "pause_ratio": 0.366,
+        "pitch_median_hz": 205.1,
+        "pitch_range_st": 13.13,
+        "energy_cv": 0.531,
+        "engagement": 87,
+        "reading": "톤이 올라감 — 실제로 관심 있음"
+      },
+      "signal": {
+        "mismatch": false,
+        "words": {
+          "label": "negative",
+          "hedges": [
+            "nice"
+          ],
+          "strong": [],
+          "negative": [
+            "loose"
+          ]
+        },
+        "engagement": 87,
+        "why": "부정적 내용을 톤도 실어서 말함 (engagement 87) — 진심으로 보임"
+      },
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 512
+    },
+    {
+      "speaker": "interviewer",
+      "text": "What was different from what you expected?",
+      "prosody": null,
+      "signal": null,
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 929
+    },
+    {
+      "speaker": "respondent",
+      "text": "The essence dried out a bit faster than I expected, so I had to be careful not to let it sit too long.",
+      "prosody": {
+        "duration_s": 6.56,
+        "speech_rate_wps": 3.51,
+        "pause_ratio": 0.281,
+        "pitch_median_hz": 205.1,
+        "pitch_range_st": 10.01,
+        "energy_cv": 0.523,
+        "engagement": 80,
+        "reading": "톤이 올라감 — 실제로 관심 있음"
+      },
+      "signal": {
+        "mismatch": false,
+        "words": {
+          "label": "negative",
+          "hedges": [],
+          "strong": [],
+          "negative": [
+            "dried out"
+          ]
+        },
+        "engagement": 80,
+        "why": "부정적 내용을 톤도 실어서 말함 (engagement 80) — 진심으로 보임"
+      },
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 484
+    },
+    {
+      "speaker": "interviewer",
+      "text": "What would need to change for you to buy these masks?",
+      "prosody": null,
+      "signal": null,
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 666
+    },
+    {
+      "speaker": "respondent",
+      "text": "I'd probably need to see a better seal around the nose and maybe a longer-lasting essence.",
+      "prosody": {
+        "duration_s": 5.88,
+        "speech_rate_wps": 2.72,
+        "pause_ratio": 0.222,
+        "pitch_median_hz": 186.0,
+        "pitch_range_st": 10.03,
+        "energy_cv": 0.505,
+        "engagement": 84,
+        "reading": "톤이 올라감 — 실제로 관심 있음"
+      },
+      "signal": {
+        "mismatch": false,
+        "words": {
+          "label": "neutral",
+          "hedges": [],
+          "strong": [],
+          "negative": []
+        },
+        "engagement": 84,
+        "why": "어휘(neutral)와 톤(engagement 84)이 일치"
+      },
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 568
+    },
+    {
+      "speaker": "interviewer",
+      "text": "How do these compare to Mediheal or Dr. Jart+ masks you've used before, especially at their usual price points?",
+      "prosody": null,
+      "signal": null,
+      "probe": false,
+      "tool_calls": [
+        {
+          "name": "lookup_competitor",
+          "args": {
+            "query": "Korean sheet masks"
+          },
+          "result": {
+            "source": "curated_us_market_prices_2026",
+            "query": "Korean sheet masks",
+            "results": [
+              {
+                "product": "Mediheal (per sheet)",
+                "us_price_usd": 3
+              },
+              {
+                "product": "Abib (per sheet)",
+                "us_price_usd": 4
+              },
+              {
+                "product": "Dr. Jart+ (per sheet)",
+                "us_price_usd": 7
+              }
+            ]
+          }
+        }
+      ],
+      "first_audio_ms": 461
+    },
+    {
+      "speaker": "respondent",
+      "text": "Compared to Mediheal at $3 or Dr. Jart+ at $7, these feel like a solid mid-range option. The fit and drying time are just a bit different, but the experience is still pretty good.",
+      "prosody": {
+        "duration_s": 14.64,
+        "speech_rate_wps": 2.32,
+        "pause_ratio": 0.297,
+        "pitch_median_hz": 200.0,
+        "pitch_range_st": 8.92,
+        "energy_cv": 0.533,
+        "engagement": 64,
+        "reading": "중립 — 예의상 반응에 가까움"
+      },
+      "signal": {
+        "mismatch": false,
+        "words": {
+          "label": "hedged_positive",
+          "hedges": [
+            "pretty good"
+          ],
+          "strong": [],
+          "negative": []
+        },
+        "engagement": 64,
+        "why": "어휘(hedged_positive)와 톤(engagement 64)이 일치"
+      },
+      "probe": false,
+      "tool_calls": [
+        {
+          "name": "lookup_competitor",
+          "args": {
+            "query": "Mediheal N.M.F. Hydrogel Mask price"
+          },
+          "result": {
+            "source": "curated_us_market_prices_2026",
+            "query": "Mediheal N.M.F. Hydrogel Mask price",
+            "results": [
+              {
+                "product": "Mediheal (per sheet)",
+                "us_price_usd": 3
+              }
+            ]
+          }
+        },
+        {
+          "name": "lookup_competitor",
+          "args": {
+            "query": "Dr. Jart+ Ceramidin Hydrogel Mask price"
+          },
+          "result": {
+            "source": "curated_us_market_prices_2026",
+            "query": "Dr. Jart+ Ceramidin Hydrogel Mask price",
+            "results": [
+              {
+                "product": "Dr. Jart+ (per sheet)",
+                "us_price_usd": 7
+              }
+            ]
+          }
+        }
+      ],
+      "first_audio_ms": 414
+    }
+  ]
+}
