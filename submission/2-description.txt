@@ -1,0 +1,7 @@
+The problem. Korean brands want to test products in the US before committing. Agencies are expensive and hard to trust, and founders can't run interviews themselves — no time, and not enough English to hear what a customer really means. Translation gives you the words. "Yeah, it was nice" translates perfectly and still reads as approval when it was a no.
+
+Why this needs Higgs. Undertone's interviewer never receives text. It hears the raw audio from Higgs Realtime and chooses its next question from that. In a speech-to-text pipeline the delivery is destroyed before the agent can act on it, so the agent can only ever react to words. Here it reacts to how something was said, at 460–930ms measured latency, which is what makes a follow-up feel like a conversation instead of a survey. Korean in, English out, tool calls mid-turn, one model.
+
+What's new. Prosody is the control signal, not a readout. Pitch range, speaking rate and pause ratio are measured per answer against that speaker's own baseline — 75 is only low if they normally sound like 96. Positive words plus a drop below their own norm triggers a harder question, automatically.
+
+Transcription exists only for the founder's report.

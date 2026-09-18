@@ -1,0 +1,66 @@
+UNDERTONE
+An AI runs US customer interviews for Korean founders who can't run them themselves,
+and reads how people said things — not just what they said.
+
+
+WHAT YOU'RE WATCHING
+
+Two screens, deliberately separated.
+
+LEFT — the US participant. A plain interview. No scores, no meters, nothing measured on
+screen. They should never know their delivery is being read, because knowing would change it.
+
+RIGHT — the founder. Empty until the interview ends, then it fills itself in.
+
+
+WHY THIS NEEDS HIGGS, SPECIFICALLY
+
+The interviewer never receives a transcript. It hears the raw audio from Higgs Realtime and
+picks its next question from that.
+
+That distinction is the whole project. In an STT -> LLM -> TTS pipeline, delivery is gone
+before the agent ever sees the turn — it can only react to words. Ours reacts to how the
+words landed.
+
+Everything on screen runs on Boson:
+  - higgs-realtime — the interviewer's speech, and its ears
+  - higgs-realtime — tool calls fired mid-turn to look up real competitor prices
+  - higgs-realtime — Korean brief in, English interview out, one model, no translation layer
+  - higgs-stt-3.1  — transcription, afterwards, for the founder's report only
+
+Measured latency across this run: 460–930ms. Any slower and the follow-up stops being a
+conversation and becomes a survey.
+
+
+WHAT'S NEW
+
+Prosody is the control signal, not a readout on the side.
+
+Pitch range, speaking rate and pause ratio are measured off every answer and compared against
+that speaker's own baseline — never an absolute scale. A 75 isn't a low score. It's only a
+signal because that person normally sounds like a 96.
+
+When the words stay positive and the delivery falls below their own norm, Undertone asks a
+harder, more specific question on its own. The honest answer comes out of the follow-up.
+
+
+HOW IT'S BUILT
+
+Python orchestrator, two Higgs Realtime sessions passing audio to each other, prosody measured
+from raw 24kHz PCM with numpy (autocorrelation F0, adaptive silence threshold). The browser
+captures the participant with every audio enhancement switched off — autoGainControl
+normalises loudness and erases the exact signal we're measuring.
+
+The repo includes the real artifacts from this run, including two recordings of the same
+sentence said two ways. Same words, 75 vs 96. Listen to them.
+
+
+HONEST LIMITS
+
+One participant is not a sample. This doesn't replace research — it kills seven bad messages
+before you spend $50k finding out.
+
+The participant here is me, answering live. In production they're a real consumer who was
+sent the product.
+
+https://github.com/annajoung1/undertone

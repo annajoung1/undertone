@@ -1,0 +1,1 @@
+An AI runs your US customer interviews in English and tells you what they actually meant, not just what they said.
