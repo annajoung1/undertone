@@ -2,10 +2,9 @@
 __pycache__/
 *.pyc
 .env
-*.wav
-!demo_assets/*.wav
 probe_*.py
 smoke_test.py
-example_outputs/*.wav
-web/audio/
 web/session.json
+
+# 실제 실행 결과물은 커밋한다 — 심사위원이 클론 없이 볼 수 있어야 한다
+!example_outputs/

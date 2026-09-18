@@ -13,14 +13,14 @@
     }
   },
   "brief_ko": "저희 시트마스크 10장 팩을 미국 소비자분들께 2주간 시딩했습니다. 제일 궁금한 건 실제로 좋았는지, 기대했던 거랑 뭐가 달랐는지예요. 괜찮았다면 얼마까지 낼 수 있는지도 듣고 싶습니다.",
-  "generated_at": "2026-09-18 15:09",
-  "verdict": "The participant liked the masks but the essence dried too fast and the fit was poor, and they would choose Summer Fridays over the product at $49.",
+  "generated_at": "2026-09-18 15:34",
+  "verdict": "The participant found the masks soft but was willing to pay only $15 for the 10-pack and preferred the $49 Summer Fridays mask over your product.",
   "actions": [
-    "Fix the fit around the nose to prevent sliding",
-    "Adjust the essence formula to slow drying time",
-    "Test a lower price point than $49 to compete with Summer Fridays"
+    "Test a lower price point of $15 for the 10-pack to see if it increases purchase intent.",
+    "Investigate the 'higher risk' comment to understand if it relates to product safety or effectiveness.",
+    "Compare the product's benefits and marketing messaging against Summer Fridays to identify areas for differentiation."
   ],
-  "limits": "This interview could not tell them if these changes would be enough to win over the participant or if other factors would influence their decision.",
+  "limits": "This interview could not tell them if the price sensitivity is common among all US consumers or if the preference for Summer Fridays is due to brand loyalty or product performance.",
   "turns": [
     {
       "speaker": "interviewer",
@@ -29,20 +29,20 @@
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 550,
+      "first_audio_ms": 435,
       "audio": "audio/00_interviewer.wav"
     },
     {
       "speaker": "respondent",
       "text": "Oh yeah, I used four of them.",
       "prosody": {
-        "duration_s": 4.78,
-        "speech_rate_wps": 1.46,
+        "duration_s": 3.24,
+        "speech_rate_wps": 2.16,
         "pause_ratio": 0.0,
-        "pitch_median_hz": 352.9,
-        "pitch_range_st": 20.22,
-        "energy_cv": 0.29,
-        "engagement": 79,
+        "pitch_median_hz": 338.0,
+        "pitch_range_st": 18.9,
+        "energy_cv": 0.338,
+        "engagement": 90,
         "reading": ""
       },
       "signal": {
@@ -52,7 +52,7 @@
           "strong": [],
           "negative": []
         },
-        "engagement": 79,
+        "engagement": 90,
         "baseline": null,
         "deviations": {},
         "mismatch": false,
@@ -72,20 +72,20 @@
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 715,
+      "first_audio_ms": 736,
       "audio": "audio/02_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "Hmm. Yeah. It was nice. I liked it.",
+      "text": "Yeah, it was nice.",
       "prosody": {
-        "duration_s": 6.31,
-        "speech_rate_wps": 1.27,
+        "duration_s": 4.61,
+        "speech_rate_wps": 0.87,
         "pause_ratio": 0.0,
         "pitch_median_hz": 352.9,
-        "pitch_range_st": 25.37,
-        "energy_cv": 0.487,
-        "engagement": 76,
+        "pitch_range_st": 15.72,
+        "energy_cv": 0.377,
+        "engagement": 75,
         "reading": ""
       },
       "signal": {
@@ -97,181 +97,56 @@
           "strong": [],
           "negative": []
         },
-        "engagement": 76,
-        "baseline": 79,
+        "engagement": 75,
+        "baseline": 90,
         "deviations": {
           "engagement": {
-            "base": 79,
-            "now": 76,
-            "pct": -4
+            "base": 90,
+            "now": 75,
+            "pct": -17
           },
           "speech_rate": {
-            "base": 1.46,
-            "now": 1.27,
-            "pct": -13
+            "base": 2.16,
+            "now": 0.87,
+            "pct": -60
           },
           "pitch_range": {
-            "base": 20.22,
-            "now": 25.37,
-            "pct": 25
+            "base": 18.9,
+            "now": 15.72,
+            "pct": -17
           }
         },
-        "mismatch": false,
-        "delta": -3,
-        "reading": "consistent with their baseline",
-        "why": "words and delivery agree"
+        "mismatch": true,
+        "delta": -15,
+        "reading": "flatter than this person normally speaks",
+        "why": "said something positive (\"nice\") but their speaking rate dropped 60% below their own baseline (2.16 → 0.87) — likely being polite"
       },
       "probe": false,
       "tool_calls": [],
       "first_audio_ms": 0,
       "audio": "audio/03_respondent.wav",
-      "ko": "Hmm. Yeah. It was nice. I liked it."
+      "ko": "Yeah, it was nice."
     },
     {
       "speaker": "interviewer",
-      "text": "What surprised you most about using the masks?",
+      "text": "What was the one thing you liked most about the masks?",
       "prosody": null,
       "signal": null,
-      "probe": false,
+      "probe": true,
       "tool_calls": [],
-      "first_audio_ms": 606,
+      "first_audio_ms": 719,
       "audio": "audio/04_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "Honestly, the the essence dried out way faster than I expected.",
+      "text": "It was very soft.",
       "prosody": {
-        "duration_s": 9.56,
-        "speech_rate_wps": 1.15,
+        "duration_s": 4.61,
+        "speech_rate_wps": 0.87,
         "pause_ratio": 0.0,
         "pitch_median_hz": 352.9,
-        "pitch_range_st": 17.33,
-        "energy_cv": 0.315,
-        "engagement": 75,
-        "reading": ""
-      },
-      "signal": {
-        "words": {
-          "label": "negative",
-          "hedges": [],
-          "strong": [],
-          "negative": [
-            "dried out",
-            "honestly"
-          ]
-        },
-        "engagement": 75,
-        "baseline": 79,
-        "deviations": {
-          "engagement": {
-            "base": 79,
-            "now": 75,
-            "pct": -5
-          },
-          "speech_rate": {
-            "base": 1.46,
-            "now": 1.15,
-            "pct": -21
-          },
-          "pitch_range": {
-            "base": 25.37,
-            "now": 17.33,
-            "pct": -32
-          }
-        },
-        "mismatch": false,
-        "delta": -4,
-        "reading": "lower energy than their baseline",
-        "why": "lower energy than usual, and the words were not positive either"
-      },
-      "probe": false,
-      "tool_calls": [],
-      "first_audio_ms": 0,
-      "audio": "audio/05_respondent.wav",
-      "ko": "Honestly, the essence dried out way faster than I expected."
-    },
-    {
-      "speaker": "interviewer",
-      "text": "What would need to change for you to buy these masks?",
-      "prosody": null,
-      "signal": null,
-      "probe": false,
-      "tool_calls": [],
-      "first_audio_ms": 733,
-      "audio": "audio/06_interviewer.wav"
-    },
-    {
-      "speaker": "respondent",
-      "text": "Maybe the fit around my nose was loose, so it kept sliding off. If you fix that, then it will be much better.",
-      "prosody": {
-        "duration_s": 10.92,
-        "speech_rate_wps": 2.11,
-        "pause_ratio": 0.0,
-        "pitch_median_hz": 347.8,
-        "pitch_range_st": 22.68,
-        "energy_cv": 0.356,
-        "engagement": 89,
-        "reading": ""
-      },
-      "signal": {
-        "words": {
-          "label": "negative",
-          "hedges": [],
-          "strong": [],
-          "negative": [
-            "loose"
-          ]
-        },
-        "engagement": 89,
-        "baseline": 79,
-        "deviations": {
-          "engagement": {
-            "base": 79,
-            "now": 89,
-            "pct": 13
-          },
-          "speech_rate": {
-            "base": 1.46,
-            "now": 2.11,
-            "pct": 45
-          },
-          "pitch_range": {
-            "base": 25.37,
-            "now": 22.68,
-            "pct": -11
-          }
-        },
-        "mismatch": false,
-        "delta": 10,
-        "reading": "delivered with full energy",
-        "why": "said something critical and put energy behind it — reads as genuine"
-      },
-      "probe": false,
-      "tool_calls": [],
-      "first_audio_ms": 0,
-      "audio": "audio/07_respondent.wav",
-      "ko": "Maybe the fit around my nose was loose, so it kept sliding off. If you fix that, then it will be much better."
-    },
-    {
-      "speaker": "interviewer",
-      "text": "What skincare do you buy for yourself when you treat yourself?",
-      "prosody": null,
-      "signal": null,
-      "probe": false,
-      "tool_calls": [],
-      "first_audio_ms": 670,
-      "audio": "audio/08_interviewer.wav"
-    },
-    {
-      "speaker": "respondent",
-      "text": "I usually buy Summer Fridays.",
-      "prosody": {
-        "duration_s": 4.1,
-        "speech_rate_wps": 1.22,
-        "pause_ratio": 0.0,
-        "pitch_median_hz": 254.4,
-        "pitch_range_st": 22.54,
-        "energy_cv": 0.427,
+        "pitch_range_st": 25.8,
+        "energy_cv": 0.277,
         "engagement": 75,
         "reading": ""
       },
@@ -283,26 +158,146 @@
           "negative": []
         },
         "engagement": 75,
-        "baseline": 89,
+        "baseline": 90,
         "deviations": {
           "engagement": {
-            "base": 89,
+            "base": 90,
             "now": 75,
-            "pct": -16
+            "pct": -17
           },
           "speech_rate": {
-            "base": 2.11,
-            "now": 1.22,
-            "pct": -42
+            "base": 2.16,
+            "now": 0.87,
+            "pct": -60
           },
           "pitch_range": {
-            "base": 25.37,
-            "now": 22.54,
-            "pct": -11
+            "base": 18.9,
+            "now": 25.8,
+            "pct": 37
           }
         },
         "mismatch": false,
-        "delta": -14,
+        "delta": -15,
+        "reading": "lower energy than their baseline",
+        "why": "lower energy than usual, and the words were not positive either"
+      },
+      "probe": true,
+      "tool_calls": [],
+      "first_audio_ms": 0,
+      "audio": "audio/05_respondent.wav",
+      "ko": "It was very soft."
+    },
+    {
+      "speaker": "interviewer",
+      "text": "What surprised you most about the masks, good or bad?",
+      "prosody": null,
+      "signal": null,
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 562,
+      "audio": "audio/06_interviewer.wav"
+    },
+    {
+      "speaker": "respondent",
+      "text": "Higher risk, higher risk.",
+      "prosody": {
+        "duration_s": 3.07,
+        "speech_rate_wps": 1.3,
+        "pause_ratio": 0.0,
+        "pitch_median_hz": 352.9,
+        "pitch_range_st": 25.48,
+        "energy_cv": 0.265,
+        "engagement": 77,
+        "reading": ""
+      },
+      "signal": {
+        "words": {
+          "label": "neutral",
+          "hedges": [],
+          "strong": [],
+          "negative": []
+        },
+        "engagement": 77,
+        "baseline": 90,
+        "deviations": {
+          "engagement": {
+            "base": 90,
+            "now": 77,
+            "pct": -14
+          },
+          "speech_rate": {
+            "base": 2.16,
+            "now": 1.3,
+            "pct": -40
+          },
+          "pitch_range": {
+            "base": 25.8,
+            "now": 25.48,
+            "pct": -1
+          }
+        },
+        "mismatch": false,
+        "delta": -13,
+        "reading": "lower energy than their baseline",
+        "why": "lower energy than usual, and the words were not positive either"
+      },
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 0,
+      "audio": "audio/07_respondent.wav",
+      "ko": "Higher risk, higher risk."
+    },
+    {
+      "speaker": "interviewer",
+      "text": "What would you pay for the 10-pack with your own money?",
+      "prosody": null,
+      "signal": null,
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 748,
+      "audio": "audio/08_interviewer.wav"
+    },
+    {
+      "speaker": "respondent",
+      "text": "Maybe fifteen dollars.",
+      "prosody": {
+        "duration_s": 3.58,
+        "speech_rate_wps": 0.84,
+        "pause_ratio": 0.0,
+        "pitch_median_hz": 266.7,
+        "pitch_range_st": 17.14,
+        "energy_cv": 0.322,
+        "engagement": 75,
+        "reading": ""
+      },
+      "signal": {
+        "words": {
+          "label": "neutral",
+          "hedges": [],
+          "strong": [],
+          "negative": []
+        },
+        "engagement": 75,
+        "baseline": 90,
+        "deviations": {
+          "engagement": {
+            "base": 90,
+            "now": 75,
+            "pct": -17
+          },
+          "speech_rate": {
+            "base": 2.16,
+            "now": 0.84,
+            "pct": -61
+          },
+          "pitch_range": {
+            "base": 25.8,
+            "now": 17.14,
+            "pct": -34
+          }
+        },
+        "mismatch": false,
+        "delta": -15,
         "reading": "lower energy than their baseline",
         "why": "lower energy than usual, and the words were not positive either"
       },
@@ -310,11 +305,71 @@
       "tool_calls": [],
       "first_audio_ms": 0,
       "audio": "audio/09_respondent.wav",
+      "ko": "Maybe fifteen dollars."
+    },
+    {
+      "speaker": "interviewer",
+      "text": "What skincare do you buy for yourself when you treat yourself?",
+      "prosody": null,
+      "signal": null,
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 564,
+      "audio": "audio/10_interviewer.wav"
+    },
+    {
+      "speaker": "respondent",
+      "text": "I usually buy summer Fridays.",
+      "prosody": {
+        "duration_s": 3.58,
+        "speech_rate_wps": 1.4,
+        "pause_ratio": 0.0,
+        "pitch_median_hz": 326.5,
+        "pitch_range_st": 22.79,
+        "energy_cv": 0.309,
+        "engagement": 78,
+        "reading": ""
+      },
+      "signal": {
+        "words": {
+          "label": "neutral",
+          "hedges": [],
+          "strong": [],
+          "negative": []
+        },
+        "engagement": 78,
+        "baseline": 90,
+        "deviations": {
+          "engagement": {
+            "base": 90,
+            "now": 78,
+            "pct": -13
+          },
+          "speech_rate": {
+            "base": 2.16,
+            "now": 1.4,
+            "pct": -35
+          },
+          "pitch_range": {
+            "base": 25.8,
+            "now": 22.79,
+            "pct": -12
+          }
+        },
+        "mismatch": false,
+        "delta": -12,
+        "reading": "lower energy than their baseline",
+        "why": "lower energy than usual, and the words were not positive either"
+      },
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 0,
+      "audio": "audio/11_respondent.wav",
       "ko": "I usually buy Summer Fridays."
     },
     {
       "speaker": "interviewer",
-      "text": "Would you buy this 10-pack for $49 or the Summer Fridays Jet Lag Mask for $49?",
+      "text": "Given that the Summer Fridays mask is $49, would you rather buy this 10-pack for $15 or stick with your usual Summer Fridays?",
       "prosody": null,
       "signal": null,
       "probe": false,
@@ -336,20 +391,20 @@
           }
         }
       ],
-      "first_audio_ms": 501,
-      "audio": "audio/10_interviewer.wav"
+      "first_audio_ms": 397,
+      "audio": "audio/12_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "Hmm. I'll go with summer Fridays.",
+      "text": "I'd go with Summer Fridays.",
       "prosody": {
-        "duration_s": 3.58,
-        "speech_rate_wps": 1.67,
-        "pause_ratio": 0.011,
-        "pitch_median_hz": 290.9,
-        "pitch_range_st": 25.45,
-        "energy_cv": 0.452,
-        "engagement": 82,
+        "duration_s": 3.24,
+        "speech_rate_wps": 1.54,
+        "pause_ratio": 0.0,
+        "pitch_median_hz": 311.7,
+        "pitch_range_st": 22.23,
+        "energy_cv": 0.294,
+        "engagement": 80,
         "reading": ""
       },
       "signal": {
@@ -359,35 +414,35 @@
           "strong": [],
           "negative": []
         },
-        "engagement": 82,
-        "baseline": 89,
+        "engagement": 80,
+        "baseline": 90,
         "deviations": {
           "engagement": {
-            "base": 89,
-            "now": 82,
-            "pct": -8
+            "base": 90,
+            "now": 80,
+            "pct": -11
           },
           "speech_rate": {
-            "base": 2.11,
-            "now": 1.67,
-            "pct": -21
+            "base": 2.16,
+            "now": 1.54,
+            "pct": -29
           },
           "pitch_range": {
-            "base": 25.37,
-            "now": 25.45,
-            "pct": 0
+            "base": 25.8,
+            "now": 22.23,
+            "pct": -14
           }
         },
         "mismatch": false,
-        "delta": -7,
-        "reading": "consistent with their baseline",
-        "why": "words and delivery agree"
+        "delta": -10,
+        "reading": "lower energy than their baseline",
+        "why": "lower energy than usual, and the words were not positive either"
       },
       "probe": false,
       "tool_calls": [],
       "first_audio_ms": 0,
-      "audio": "audio/11_respondent.wav",
-      "ko": "Hmm. I'll go with Summer Fridays."
+      "audio": "audio/13_respondent.wav",
+      "ko": "I'd go with Summer Fridays."
     }
   ]
 }
