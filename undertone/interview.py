@@ -86,7 +86,7 @@ async def run(on_event=lambda *a, **k: None, live=False, respondent=None) -> Rec
 
             a = await resp.hear_audio(q.pcm)
             sig = signals.check_mismatch(a.text, a.prosody, baseline)
-            baseline.observe(getattr(a.prosody, 'engagement', None))
+            baseline.observe(a.prosody)
             rec.add("respondent", a, signal=sig)
             on_event("answer", step=step["id"], text=a.text.strip(),
                      prosody=a.prosody, signal=sig, turn=a)
@@ -104,7 +104,7 @@ async def run(on_event=lambda *a, **k: None, live=False, respondent=None) -> Rec
 
                 pa = await resp.hear_audio(pq.pcm)
                 psig = signals.check_mismatch(pa.text, pa.prosody, baseline)
-                baseline.observe(getattr(pa.prosody, 'engagement', None))
+                baseline.observe(pa.prosody)
                 rec.add("respondent", pa, signal=psig, probe=True)
                 on_event("answer", step=step["id"] + "_probe", text=pa.text.strip(),
                          prosody=pa.prosody, signal=psig, turn=pa, probe=True)

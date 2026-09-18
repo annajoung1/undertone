@@ -13,113 +13,117 @@
     }
   },
   "brief_ko": "저희 시트마스크 10장 팩을 미국 소비자분들께 2주간 시딩했습니다. 제일 궁금한 건 실제로 좋았는지, 기대했던 거랑 뭐가 달랐는지예요. 괜찮았다면 얼마까지 낼 수 있는지도 듣고 싶습니다.",
-  "respondent": "28 · Brooklyn · Sephora + Amazon",
+  "generated_at": "2026-09-18 14:50",
+  "verdict": "The participant used only four of the ten masks and found the essence dried out faster than expected, which likely reduced their overall satisfaction despite liking the mask.\n\n- Test a revised formula or packaging that slows down drying time.\n- Adjust the price point to $15 to align with the participant's willingness to pay.\n- Consider bundling or offering a smaller pack to test market response.\n\nThis interview could not tell the founder how the product would perform with a larger group of users or how it would compare to other competitors beyond Laneige.",
+  "actions": [],
+  "limits": "",
   "turns": [
     {
       "speaker": "interviewer",
-      "text": "How many of the ten masks did you actually end up using?",
+      "text": "How many of the ten masks did you actually use?",
       "prosody": null,
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 436
+      "first_audio_ms": 525,
+      "audio": "audio/00_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "I used four of the ten. They were nice, but I didn't end up finishing the whole pack.",
+      "text": "Yeah, I used four of them.",
       "prosody": {
-        "duration_s": 5.92,
-        "speech_rate_wps": 3.04,
-        "pause_ratio": 0.41,
-        "pitch_median_hz": 212.4,
-        "pitch_range_st": 12.29,
-        "energy_cv": 0.516,
-        "engagement": 83,
+        "duration_s": 2.9,
+        "speech_rate_wps": 2.07,
+        "pause_ratio": 0.0,
+        "pitch_median_hz": 352.9,
+        "pitch_range_st": 11.61,
+        "energy_cv": 0.307,
+        "engagement": 86,
         "reading": "톤이 올라감 — 실제로 관심 있음"
       },
       "signal": {
         "words": {
-          "label": "negative",
-          "hedges": [
-            "nice"
-          ],
+          "label": "neutral",
+          "hedges": [],
           "strong": [],
-          "negative": [
-            "didn't"
-          ]
+          "negative": []
         },
-        "engagement": 83,
+        "engagement": 86,
         "baseline": null,
         "mismatch": false,
-        "why": "기준선 수집 중 (engagement 83)"
+        "why": "기준선 수집 중 (engagement 86)"
       },
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 771
+      "first_audio_ms": 0,
+      "audio": "audio/01_respondent.wav",
+      "ko": "Yeah, I used four of them."
     },
     {
       "speaker": "interviewer",
-      "text": "Did you like the masks overall?",
+      "text": "Did you like the mask overall?",
       "prosody": null,
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 905
+      "first_audio_ms": 672,
+      "audio": "audio/02_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "They were nice. I liked them, but I wouldn't say they were my absolute favorite.",
+      "text": "Yeah, it was nice. I liked it.",
       "prosody": {
-        "duration_s": 5.64,
-        "speech_rate_wps": 2.66,
-        "pause_ratio": 0.384,
-        "pitch_median_hz": 206.9,
-        "pitch_range_st": 11.89,
-        "energy_cv": 0.584,
-        "engagement": 82,
+        "duration_s": 5.8,
+        "speech_rate_wps": 1.21,
+        "pause_ratio": 0.0,
+        "pitch_median_hz": 352.9,
+        "pitch_range_st": 18.4,
+        "energy_cv": 0.292,
+        "engagement": 75,
         "reading": "톤이 올라감 — 실제로 관심 있음"
       },
       "signal": {
         "words": {
-          "label": "negative",
+          "label": "hedged_positive",
           "hedges": [
             "nice"
           ],
           "strong": [],
-          "negative": [
-            "wouldn't"
-          ]
+          "negative": []
         },
-        "engagement": 82,
-        "baseline": 83,
+        "engagement": 75,
+        "baseline": 86,
         "mismatch": false,
-        "delta": -1,
-        "why": "부정적 내용을 톤도 실어서 말함 (82) — 진심으로 보임"
+        "delta": -11,
+        "why": "어휘(hedged_positive)와 톤이 일치 (75, 기준선 86)"
       },
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 418
+      "first_audio_ms": 0,
+      "audio": "audio/03_respondent.wav",
+      "ko": "Yeah, it was nice. I liked it."
     },
     {
       "speaker": "interviewer",
-      "text": "What surprised you most about the masks, good or bad?",
+      "text": "What surprised you about it, good or bad?",
       "prosody": null,
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 663
+      "first_audio_ms": 661,
+      "audio": "audio/04_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "Honestly, the fit around the nose was a bit loose for me. It wasn't terrible, but it did feel like it shifted a little while I was wearing it.",
+      "text": "Honestly, the essence dried out way faster than I expected.",
       "prosody": {
-        "duration_s": 8.36,
-        "speech_rate_wps": 3.47,
-        "pause_ratio": 0.319,
-        "pitch_median_hz": 203.4,
-        "pitch_range_st": 13.72,
-        "energy_cv": 0.491,
-        "engagement": 90,
+        "duration_s": 6.49,
+        "speech_rate_wps": 1.54,
+        "pause_ratio": 0.0,
+        "pitch_median_hz": 352.9,
+        "pitch_range_st": 13.35,
+        "energy_cv": 0.295,
+        "engagement": 80,
         "reading": "톤이 올라감 — 실제로 관심 있음"
       },
       "signal": {
@@ -128,101 +132,109 @@
           "hedges": [],
           "strong": [],
           "negative": [
-            "loose",
+            "dried out",
             "honestly"
           ]
         },
-        "engagement": 90,
-        "baseline": 83,
-        "mismatch": false,
-        "delta": 7,
-        "why": "부정적 내용을 톤도 실어서 말함 (90) — 진심으로 보임"
-      },
-      "probe": false,
-      "tool_calls": [],
-      "first_audio_ms": 777
-    },
-    {
-      "speaker": "interviewer",
-      "text": "What would need to change for you to buy these masks?",
-      "prosody": null,
-      "signal": null,
-      "probe": false,
-      "tool_calls": [],
-      "first_audio_ms": 747
-    },
-    {
-      "speaker": "respondent",
-      "text": "I think a tighter seal around the nose would make a big difference. Also, if the essence lasted a bit longer before drying out, that would be great.",
-      "prosody": {
-        "duration_s": 9.56,
-        "speech_rate_wps": 2.93,
-        "pause_ratio": 0.268,
-        "pitch_median_hz": 192.0,
-        "pitch_range_st": 8.77,
-        "energy_cv": 0.634,
-        "engagement": 72,
-        "reading": "톤이 올라감 — 실제로 관심 있음"
-      },
-      "signal": {
-        "words": {
-          "label": "neutral",
-          "hedges": [],
-          "strong": [],
-          "negative": []
-        },
-        "engagement": 72,
-        "baseline": 90,
-        "mismatch": false,
-        "delta": -18,
-        "why": "어휘(neutral)와 톤이 일치 (72, 기준선 90)"
-      },
-      "probe": false,
-      "tool_calls": [],
-      "first_audio_ms": 508
-    },
-    {
-      "speaker": "interviewer",
-      "text": "When you treat yourself, what skincare do you usually buy for yourself?",
-      "prosody": null,
-      "signal": null,
-      "probe": false,
-      "tool_calls": [],
-      "first_audio_ms": 696
-    },
-    {
-      "speaker": "respondent",
-      "text": "I usually go for sheet masks from brands like Innisfree or Laneige. They're reliable and I know what to expect from them.",
-      "prosody": {
-        "duration_s": 7.48,
-        "speech_rate_wps": 2.94,
-        "pause_ratio": 0.228,
-        "pitch_median_hz": 200.0,
-        "pitch_range_st": 10.07,
-        "energy_cv": 0.508,
-        "engagement": 84,
-        "reading": "톤이 올라감 — 실제로 관심 있음"
-      },
-      "signal": {
-        "words": {
-          "label": "neutral",
-          "hedges": [],
-          "strong": [],
-          "negative": []
-        },
-        "engagement": 84,
-        "baseline": 90,
+        "engagement": 80,
+        "baseline": 86,
         "mismatch": false,
         "delta": -6,
-        "why": "어휘(neutral)와 톤이 일치 (84, 기준선 90)"
+        "why": "부정적 내용을 톤도 실어서 말함 (80) — 진심으로 보임"
       },
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 611
+      "first_audio_ms": 0,
+      "audio": "audio/05_respondent.wav",
+      "ko": "Honestly, the essence dried out way faster than I expected."
     },
     {
       "speaker": "interviewer",
-      "text": "Would you rather buy this ten-pack of masks or a Laneige Water Sleeping Mask for thirty-four dollars?",
+      "text": "What would have to change for you to buy it?",
+      "prosody": null,
+      "signal": null,
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 679,
+      "audio": "audio/06_interviewer.wav"
+    },
+    {
+      "speaker": "respondent",
+      "text": "Maybe fifteen dollars.",
+      "prosody": {
+        "duration_s": 4.44,
+        "speech_rate_wps": 0.68,
+        "pause_ratio": 0.0,
+        "pitch_median_hz": 352.9,
+        "pitch_range_st": 11.39,
+        "energy_cv": 0.312,
+        "engagement": 71,
+        "reading": "톤이 올라감 — 실제로 관심 있음"
+      },
+      "signal": {
+        "words": {
+          "label": "neutral",
+          "hedges": [],
+          "strong": [],
+          "negative": []
+        },
+        "engagement": 71,
+        "baseline": 86,
+        "mismatch": false,
+        "delta": -15,
+        "why": "어휘(neutral)와 톤이 일치 (71, 기준선 86)"
+      },
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 0,
+      "audio": "audio/07_respondent.wav",
+      "ko": "Maybe fifteen dollars."
+    },
+    {
+      "speaker": "interviewer",
+      "text": "What skincare do you buy for yourself when you treat yourself?",
+      "prosody": null,
+      "signal": null,
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 557,
+      "audio": "audio/08_interviewer.wav"
+    },
+    {
+      "speaker": "respondent",
+      "text": "I usually buy road.",
+      "prosody": {
+        "duration_s": 3.58,
+        "speech_rate_wps": 1.12,
+        "pause_ratio": 0.0,
+        "pitch_median_hz": 352.9,
+        "pitch_range_st": 15.74,
+        "energy_cv": 0.314,
+        "engagement": 75,
+        "reading": "톤이 올라감 — 실제로 관심 있음"
+      },
+      "signal": {
+        "words": {
+          "label": "neutral",
+          "hedges": [],
+          "strong": [],
+          "negative": []
+        },
+        "engagement": 75,
+        "baseline": 86,
+        "mismatch": false,
+        "delta": -11,
+        "why": "어휘(neutral)와 톤이 일치 (75, 기준선 86)"
+      },
+      "probe": false,
+      "tool_calls": [],
+      "first_audio_ms": 0,
+      "audio": "audio/09_respondent.wav",
+      "ko": "I usually buy road."
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Would you rather buy this 10-pack or the Laneige Water Sleeping Mask for $34?",
       "prosody": null,
       "signal": null,
       "probe": false,
@@ -230,37 +242,38 @@
         {
           "name": "lookup_competitor",
           "args": {
-            "query": "Innisfree or Laneige sheet masks"
+            "query": "Laneige Water Sleeping Mask"
           },
           "result": {
             "source": "curated_us_market_prices_2026",
-            "query": "Innisfree or Laneige sheet masks",
+            "query": "Laneige Water Sleeping Mask",
             "results": [
+              {
+                "product": "Summer Fridays Jet Lag Mask",
+                "us_price_usd": 49
+              },
               {
                 "product": "Laneige Water Sleeping Mask",
                 "us_price_usd": 34
-              },
-              {
-                "product": "Mediheal (per sheet)",
-                "us_price_usd": 3
               }
             ]
           }
         }
       ],
-      "first_audio_ms": 482
+      "first_audio_ms": 470,
+      "audio": "audio/10_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "I'd probably go with the Laneige Water Sleeping Mask. It's a bit more expensive, but it's a product I really trust and know works well for me.",
+      "text": "I don't know, Ranette. I'd probably go with road.",
       "prosody": {
-        "duration_s": 9.04,
-        "speech_rate_wps": 2.99,
-        "pause_ratio": 0.325,
-        "pitch_median_hz": 203.4,
-        "pitch_range_st": 12.41,
-        "energy_cv": 0.547,
-        "engagement": 90,
+        "duration_s": 4.78,
+        "speech_rate_wps": 1.88,
+        "pause_ratio": 0.0,
+        "pitch_median_hz": 352.9,
+        "pitch_range_st": 16.84,
+        "energy_cv": 0.261,
+        "engagement": 86,
         "reading": "톤이 올라감 — 실제로 관심 있음"
       },
       "signal": {
@@ -270,15 +283,17 @@
           "strong": [],
           "negative": []
         },
-        "engagement": 90,
-        "baseline": 90,
+        "engagement": 86,
+        "baseline": 86,
         "mismatch": false,
         "delta": 0,
-        "why": "어휘(neutral)와 톤이 일치 (90, 기준선 90)"
+        "why": "어휘(neutral)와 톤이 일치 (86, 기준선 86)"
       },
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 597
+      "first_audio_ms": 0,
+      "audio": "audio/11_respondent.wav",
+      "ko": "I don't know, Ranette. I'd probably go with road."
     }
   ]
 }

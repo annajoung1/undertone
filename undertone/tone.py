@@ -98,12 +98,8 @@ def analyze(pcm: bytes, word_count: int) -> Prosody:
     s_pause = np.clip((0.45 - pause_ratio) / 0.25, 0, 1)
     engagement = int(round(100 * (0.55 * s_pitch + 0.25 * s_rate + 0.20 * s_pause)))
 
-    if engagement >= 67:
-        reading = "톤이 올라감 — 실제로 관심 있음"
-    elif engagement >= 40:
-        reading = "중립 — 예의상 반응에 가까움"
-    else:
-        reading = "톤이 미지근함 — 말은 긍정이어도 설득되지 않음"
+    # 절대값으로 감정을 단정하지 않는다. 해석은 signals.py 가 화자 기준선과 비교해서 한다.
+    reading = ""
 
     return Prosody(round(dur, 2), round(speaking_rate, 2), round(pause_ratio, 3),
                    round(p_med, 1), round(p_range, 2), round(e_cv, 3),

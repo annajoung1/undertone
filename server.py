@@ -95,8 +95,7 @@ async def run_interview(ws, resp):
             "brief_ko": config.FOUNDER_BRIEF_KO,
             "generated_at": time.strftime("%Y-%m-%d %H:%M"),
             "verdict": parts[0],
-            "actions": [l.lstrip("- ").strip() for l in parts[1].splitlines()
-                        if l.strip().startswith("-")],
+            "actions": parts[1],
             "limits": parts[2],
             "turns": [{k: v for k, v in t.items() if k != "pcm"} for t in rec.turns],
         }

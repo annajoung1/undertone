@@ -82,12 +82,11 @@ async def build(rec, path):
         "- Be specific and concrete. No generic advice like 'revisit your pricing strategy'.\n"
         "- Never invent numbers. Only use numbers given to you.\n"
         "\n"
-        "Output exactly three sections separated by a line containing only '---':\n"
-        "1) ONE sentence: the single most important thing the founder needs to know. "
-        "Lead with the product problem, not a summary.\n"
-        "2) Three lines starting with '- ': concrete next actions. Each names a specific "
-        "thing to change, test, or decide.\n"
-        "3) ONE sentence: what this interview could NOT tell them.",
+        "Output ONLY valid JSON, no markdown fence, with exactly these keys:\n"
+        '{"verdict": "one sentence — the single most important thing the founder needs to '
+        'know, leading with the product problem", "actions": ["three concrete next actions, '
+        'each naming a specific thing to change, test or decide"], "limits": "one sentence — '
+        'what this interview could not tell them"}',
         f"Product: {config.PRODUCT['item']} at ${config.PRODUCT['price_being_tested_usd']} "
         f"for a 10-pack, seeded 2 weeks.\n"
         f"Founder asked (Korean): {config.FOUNDER_BRIEF_KO}\n"
@@ -106,8 +105,18 @@ async def build(rec, path):
     for t, k in zip(answers, ko_list):
         t["ko"] = _clean(k)
 
-    parts = [_clean(p.strip()) for p in verdict.split("---")] if verdict else ["", "", ""]
-    parts += [""] * (3 - len(parts))
+    try:
+        v = json.loads(verdict[verdict.index("{"):verdict.rindex("}") + 1])
+        parts = [_clean(str(v.get("verdict", ""))),
+                 [_clean(str(a)) for a in v.get("actions", [])][:3],
+                 _clean(str(v.get("limits", "")))]
+    except Exception:
+        # JSON 이 깨지면 줄 단위로라도 건져낸다
+        lines = [l.strip() for l in (verdict or "").splitlines() if l.strip()]
+        acts = [l.lstrip("-•* ").strip() for l in lines if l.lstrip().startswith(("-", "•", "*"))]
+        rest = [l for l in lines if not l.lstrip().startswith(("-", "•", "*"))]
+        parts = [_clean(rest[0]) if rest else "", [_clean(a) for a in acts][:3],
+                 _clean(rest[-1]) if len(rest) > 1 else ""]
 
     _html(rec, turns, mismatches, tools, parts, path)
     return parts
@@ -140,7 +149,7 @@ def _html(rec, turns, mismatches, tools, parts, path):
                 met = (f'<div class="m">{_gauge(pr["engagement"])}'
                        f'<span class="mm">피치폭 {pr["pitch_range_st"]} st · '
                        f'속도 {pr["speech_rate_wps"]} w/s · 휴지 {int(pr["pause_ratio"]*100)}%</span></div>'
-                       f'<div class="rd">{html.escape(pr["reading"])}</div>')
+                       f'<div class="rd">{html.escape(sg.get("reading",""))}</div>')
             rows.append(f'<div class="turn a"><div class="lbl">답변</div>'
                         f'<div class="en">{html.escape(t["text"])}</div>'
                         f'<div class="ko">{html.escape(t.get("ko",""))}</div>{met}{warn}</div>')
@@ -201,8 +210,7 @@ padding:8px 11px;border-radius:7px;font-size:13px}}
 <div class="card"><h2>결론</h2><div class="lead">{html.escape(parts[0])}</div></div>
 
 <div class="card"><h2>그래서 뭘 해야 하나</h2>
-<ul class="acts">{''.join(f'<li>{html.escape(l.lstrip("- ").strip())}</li>'
-                          for l in parts[1].splitlines() if l.strip().startswith('-'))}</ul></div>
+<ul class="acts">{''.join(f'<li>{html.escape(a)}</li>' for a in parts[1])}</ul></div>
 
 {tool_html}
 
