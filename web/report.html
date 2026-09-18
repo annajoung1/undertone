@@ -99,7 +99,7 @@ function load(){
  return fetch("session.json?"+Date.now()).then(r=>{
   if(!r.ok)throw 0;return r.json();
  }).then(d=>{
-  if(d.generated_at===lastStamp)return;   // 바뀐 게 없으면 다시 그리지 않는다
+  if(d.generated_at===lastStamp)return;   // nothing changed, don't repaint
   lastStamp=d.generated_at;
   const turns=d.turns||[];
   let body="",pendingQ=null;
@@ -173,5 +173,5 @@ function load(){
  });
 }
 load();
-setInterval(load, 2000);   // 인터뷰가 끝나면 스스로 갱신된다
+setInterval(load, 2000);   // fills itself in the moment the interview finishes
 </script>

@@ -113,8 +113,8 @@ function playPCM(b64){return new Promise(res=>{
 
 async function initMic(){
   const ms=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,
-    // 운율을 측정하려면 브라우저의 자동 보정을 전부 꺼야 한다.
-    // autoGainControl 은 음량을 평준화해서 우리가 재려는 신호 자체를 지운다.
+    // Every browser audio enhancement has to be off to measure prosody.
+    // autoGainControl in particular normalises loudness, which erases the signal.
     echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
   const src=ac.createMediaStreamSource(ms);
   analyser=ac.createAnalyser();analyser.fftSize=1024;src.connect(analyser);
