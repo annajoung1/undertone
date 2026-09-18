@@ -13,10 +13,14 @@
     }
   },
   "brief_ko": "저희 시트마스크 10장 팩을 미국 소비자분들께 2주간 시딩했습니다. 제일 궁금한 건 실제로 좋았는지, 기대했던 거랑 뭐가 달랐는지예요. 괜찮았다면 얼마까지 낼 수 있는지도 듣고 싶습니다.",
-  "generated_at": "2026-09-18 14:50",
-  "verdict": "The participant used only four of the ten masks and found the essence dried out faster than expected, which likely reduced their overall satisfaction despite liking the mask.\n\n- Test a revised formula or packaging that slows down drying time.\n- Adjust the price point to $15 to align with the participant's willingness to pay.\n- Consider bundling or offering a smaller pack to test market response.\n\nThis interview could not tell the founder how the product would perform with a larger group of users or how it would compare to other competitors beyond Laneige.",
-  "actions": [],
-  "limits": "",
+  "generated_at": "2026-09-18 15:09",
+  "verdict": "The participant liked the masks but the essence dried too fast and the fit was poor, and they would choose Summer Fridays over the product at $49.",
+  "actions": [
+    "Fix the fit around the nose to prevent sliding",
+    "Adjust the essence formula to slow drying time",
+    "Test a lower price point than $49 to compete with Summer Fridays"
+  ],
+  "limits": "This interview could not tell them if these changes would be enough to win over the participant or if other factors would influence their decision.",
   "turns": [
     {
       "speaker": "interviewer",
@@ -25,21 +29,21 @@
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 525,
+      "first_audio_ms": 550,
       "audio": "audio/00_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "Yeah, I used four of them.",
+      "text": "Oh yeah, I used four of them.",
       "prosody": {
-        "duration_s": 2.9,
-        "speech_rate_wps": 2.07,
+        "duration_s": 4.78,
+        "speech_rate_wps": 1.46,
         "pause_ratio": 0.0,
         "pitch_median_hz": 352.9,
-        "pitch_range_st": 11.61,
-        "energy_cv": 0.307,
-        "engagement": 86,
-        "reading": "톤이 올라감 — 실제로 관심 있음"
+        "pitch_range_st": 20.22,
+        "energy_cv": 0.29,
+        "engagement": 79,
+        "reading": ""
       },
       "signal": {
         "words": {
@@ -48,39 +52,41 @@
           "strong": [],
           "negative": []
         },
-        "engagement": 86,
+        "engagement": 79,
         "baseline": null,
+        "deviations": {},
         "mismatch": false,
-        "why": "기준선 수집 중 (engagement 86)"
+        "why": "establishing this speaker's baseline",
+        "reading": "baseline"
       },
       "probe": false,
       "tool_calls": [],
       "first_audio_ms": 0,
       "audio": "audio/01_respondent.wav",
-      "ko": "Yeah, I used four of them."
+      "ko": "Oh yeah, I used four of them."
     },
     {
       "speaker": "interviewer",
-      "text": "Did you like the mask overall?",
+      "text": "Did you like using the masks?",
       "prosody": null,
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 672,
+      "first_audio_ms": 715,
       "audio": "audio/02_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "Yeah, it was nice. I liked it.",
+      "text": "Hmm. Yeah. It was nice. I liked it.",
       "prosody": {
-        "duration_s": 5.8,
-        "speech_rate_wps": 1.21,
+        "duration_s": 6.31,
+        "speech_rate_wps": 1.27,
         "pause_ratio": 0.0,
         "pitch_median_hz": 352.9,
-        "pitch_range_st": 18.4,
-        "energy_cv": 0.292,
-        "engagement": 75,
-        "reading": "톤이 올라감 — 실제로 관심 있음"
+        "pitch_range_st": 25.37,
+        "energy_cv": 0.487,
+        "engagement": 76,
+        "reading": ""
       },
       "signal": {
         "words": {
@@ -91,40 +97,58 @@
           "strong": [],
           "negative": []
         },
-        "engagement": 75,
-        "baseline": 86,
+        "engagement": 76,
+        "baseline": 79,
+        "deviations": {
+          "engagement": {
+            "base": 79,
+            "now": 76,
+            "pct": -4
+          },
+          "speech_rate": {
+            "base": 1.46,
+            "now": 1.27,
+            "pct": -13
+          },
+          "pitch_range": {
+            "base": 20.22,
+            "now": 25.37,
+            "pct": 25
+          }
+        },
         "mismatch": false,
-        "delta": -11,
-        "why": "어휘(hedged_positive)와 톤이 일치 (75, 기준선 86)"
+        "delta": -3,
+        "reading": "consistent with their baseline",
+        "why": "words and delivery agree"
       },
       "probe": false,
       "tool_calls": [],
       "first_audio_ms": 0,
       "audio": "audio/03_respondent.wav",
-      "ko": "Yeah, it was nice. I liked it."
+      "ko": "Hmm. Yeah. It was nice. I liked it."
     },
     {
       "speaker": "interviewer",
-      "text": "What surprised you about it, good or bad?",
+      "text": "What surprised you most about using the masks?",
       "prosody": null,
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 661,
+      "first_audio_ms": 606,
       "audio": "audio/04_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "Honestly, the essence dried out way faster than I expected.",
+      "text": "Honestly, the the essence dried out way faster than I expected.",
       "prosody": {
-        "duration_s": 6.49,
-        "speech_rate_wps": 1.54,
+        "duration_s": 9.56,
+        "speech_rate_wps": 1.15,
         "pause_ratio": 0.0,
         "pitch_median_hz": 352.9,
-        "pitch_range_st": 13.35,
-        "energy_cv": 0.295,
-        "engagement": 80,
-        "reading": "톤이 올라감 — 실제로 관심 있음"
+        "pitch_range_st": 17.33,
+        "energy_cv": 0.315,
+        "engagement": 75,
+        "reading": ""
       },
       "signal": {
         "words": {
@@ -136,11 +160,29 @@
             "honestly"
           ]
         },
-        "engagement": 80,
-        "baseline": 86,
+        "engagement": 75,
+        "baseline": 79,
+        "deviations": {
+          "engagement": {
+            "base": 79,
+            "now": 75,
+            "pct": -5
+          },
+          "speech_rate": {
+            "base": 1.46,
+            "now": 1.15,
+            "pct": -21
+          },
+          "pitch_range": {
+            "base": 25.37,
+            "now": 17.33,
+            "pct": -32
+          }
+        },
         "mismatch": false,
-        "delta": -6,
-        "why": "부정적 내용을 톤도 실어서 말함 (80) — 진심으로 보임"
+        "delta": -4,
+        "reading": "lower energy than their baseline",
+        "why": "lower energy than usual, and the words were not positive either"
       },
       "probe": false,
       "tool_calls": [],
@@ -150,45 +192,65 @@
     },
     {
       "speaker": "interviewer",
-      "text": "What would have to change for you to buy it?",
+      "text": "What would need to change for you to buy these masks?",
       "prosody": null,
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 679,
+      "first_audio_ms": 733,
       "audio": "audio/06_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "Maybe fifteen dollars.",
+      "text": "Maybe the fit around my nose was loose, so it kept sliding off. If you fix that, then it will be much better.",
       "prosody": {
-        "duration_s": 4.44,
-        "speech_rate_wps": 0.68,
+        "duration_s": 10.92,
+        "speech_rate_wps": 2.11,
         "pause_ratio": 0.0,
-        "pitch_median_hz": 352.9,
-        "pitch_range_st": 11.39,
-        "energy_cv": 0.312,
-        "engagement": 71,
-        "reading": "톤이 올라감 — 실제로 관심 있음"
+        "pitch_median_hz": 347.8,
+        "pitch_range_st": 22.68,
+        "energy_cv": 0.356,
+        "engagement": 89,
+        "reading": ""
       },
       "signal": {
         "words": {
-          "label": "neutral",
+          "label": "negative",
           "hedges": [],
           "strong": [],
-          "negative": []
+          "negative": [
+            "loose"
+          ]
         },
-        "engagement": 71,
-        "baseline": 86,
+        "engagement": 89,
+        "baseline": 79,
+        "deviations": {
+          "engagement": {
+            "base": 79,
+            "now": 89,
+            "pct": 13
+          },
+          "speech_rate": {
+            "base": 1.46,
+            "now": 2.11,
+            "pct": 45
+          },
+          "pitch_range": {
+            "base": 25.37,
+            "now": 22.68,
+            "pct": -11
+          }
+        },
         "mismatch": false,
-        "delta": -15,
-        "why": "어휘(neutral)와 톤이 일치 (71, 기준선 86)"
+        "delta": 10,
+        "reading": "delivered with full energy",
+        "why": "said something critical and put energy behind it — reads as genuine"
       },
       "probe": false,
       "tool_calls": [],
       "first_audio_ms": 0,
       "audio": "audio/07_respondent.wav",
-      "ko": "Maybe fifteen dollars."
+      "ko": "Maybe the fit around my nose was loose, so it kept sliding off. If you fix that, then it will be much better."
     },
     {
       "speaker": "interviewer",
@@ -197,21 +259,21 @@
       "signal": null,
       "probe": false,
       "tool_calls": [],
-      "first_audio_ms": 557,
+      "first_audio_ms": 670,
       "audio": "audio/08_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "I usually buy road.",
+      "text": "I usually buy Summer Fridays.",
       "prosody": {
-        "duration_s": 3.58,
-        "speech_rate_wps": 1.12,
+        "duration_s": 4.1,
+        "speech_rate_wps": 1.22,
         "pause_ratio": 0.0,
-        "pitch_median_hz": 352.9,
-        "pitch_range_st": 15.74,
-        "energy_cv": 0.314,
+        "pitch_median_hz": 254.4,
+        "pitch_range_st": 22.54,
+        "energy_cv": 0.427,
         "engagement": 75,
-        "reading": "톤이 올라감 — 실제로 관심 있음"
+        "reading": ""
       },
       "signal": {
         "words": {
@@ -221,20 +283,38 @@
           "negative": []
         },
         "engagement": 75,
-        "baseline": 86,
+        "baseline": 89,
+        "deviations": {
+          "engagement": {
+            "base": 89,
+            "now": 75,
+            "pct": -16
+          },
+          "speech_rate": {
+            "base": 2.11,
+            "now": 1.22,
+            "pct": -42
+          },
+          "pitch_range": {
+            "base": 25.37,
+            "now": 22.54,
+            "pct": -11
+          }
+        },
         "mismatch": false,
-        "delta": -11,
-        "why": "어휘(neutral)와 톤이 일치 (75, 기준선 86)"
+        "delta": -14,
+        "reading": "lower energy than their baseline",
+        "why": "lower energy than usual, and the words were not positive either"
       },
       "probe": false,
       "tool_calls": [],
       "first_audio_ms": 0,
       "audio": "audio/09_respondent.wav",
-      "ko": "I usually buy road."
+      "ko": "I usually buy Summer Fridays."
     },
     {
       "speaker": "interviewer",
-      "text": "Would you rather buy this 10-pack or the Laneige Water Sleeping Mask for $34?",
+      "text": "Would you buy this 10-pack for $49 or the Summer Fridays Jet Lag Mask for $49?",
       "prosody": null,
       "signal": null,
       "probe": false,
@@ -242,39 +322,35 @@
         {
           "name": "lookup_competitor",
           "args": {
-            "query": "Laneige Water Sleeping Mask"
+            "query": "Summer Fridays"
           },
           "result": {
             "source": "curated_us_market_prices_2026",
-            "query": "Laneige Water Sleeping Mask",
+            "query": "Summer Fridays",
             "results": [
               {
                 "product": "Summer Fridays Jet Lag Mask",
                 "us_price_usd": 49
-              },
-              {
-                "product": "Laneige Water Sleeping Mask",
-                "us_price_usd": 34
               }
             ]
           }
         }
       ],
-      "first_audio_ms": 470,
+      "first_audio_ms": 501,
       "audio": "audio/10_interviewer.wav"
     },
     {
       "speaker": "respondent",
-      "text": "I don't know, Ranette. I'd probably go with road.",
+      "text": "Hmm. I'll go with summer Fridays.",
       "prosody": {
-        "duration_s": 4.78,
-        "speech_rate_wps": 1.88,
-        "pause_ratio": 0.0,
-        "pitch_median_hz": 352.9,
-        "pitch_range_st": 16.84,
-        "energy_cv": 0.261,
-        "engagement": 86,
-        "reading": "톤이 올라감 — 실제로 관심 있음"
+        "duration_s": 3.58,
+        "speech_rate_wps": 1.67,
+        "pause_ratio": 0.011,
+        "pitch_median_hz": 290.9,
+        "pitch_range_st": 25.45,
+        "energy_cv": 0.452,
+        "engagement": 82,
+        "reading": ""
       },
       "signal": {
         "words": {
@@ -283,17 +359,35 @@
           "strong": [],
           "negative": []
         },
-        "engagement": 86,
-        "baseline": 86,
+        "engagement": 82,
+        "baseline": 89,
+        "deviations": {
+          "engagement": {
+            "base": 89,
+            "now": 82,
+            "pct": -8
+          },
+          "speech_rate": {
+            "base": 2.11,
+            "now": 1.67,
+            "pct": -21
+          },
+          "pitch_range": {
+            "base": 25.37,
+            "now": 25.45,
+            "pct": 0
+          }
+        },
         "mismatch": false,
-        "delta": 0,
-        "why": "어휘(neutral)와 톤이 일치 (86, 기준선 86)"
+        "delta": -7,
+        "reading": "consistent with their baseline",
+        "why": "words and delivery agree"
       },
       "probe": false,
       "tool_calls": [],
       "first_audio_ms": 0,
       "audio": "audio/11_respondent.wav",
-      "ko": "I don't know, Ranette. I'd probably go with road."
+      "ko": "Hmm. I'll go with Summer Fridays."
     }
   ]
 }

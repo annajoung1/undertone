@@ -2,6 +2,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Product Interview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+
 <style>
 :root{--bg:#fdfaf5;--fg:#121110;--mut:#57534e;--dim:#a8a29e;--line:#e9e4da;
   --card:#fff;--accent:#121110;--rec:#fc6950}
@@ -10,7 +12,7 @@ body{margin:0;background:var(--bg);color:var(--fg);min-height:100vh;
   font:16px/1.65 -apple-system,BlinkMacSystemFont,"Inter",sans-serif;
   padding-top:env(safe-area-inset-top,0px);display:flex;flex-direction:column}
 .top{border-bottom:1px solid var(--line);background:var(--card)}
-.topin{max-width:680px;margin:0 auto;padding:16px 24px;display:flex;
+.topin{max-width:718px;margin:0 auto;padding:16px 24px;display:flex;
   align-items:center;justify-content:space-between;gap:16px}
 .brand{font-size:14px;font-weight:600;letter-spacing:-.01em}
 .brand span{color:var(--dim);font-weight:400;margin-left:8px}
@@ -19,7 +21,7 @@ body{margin:0;background:var(--bg);color:var(--fg);min-height:100vh;
 .fill{height:100%;background:var(--rec);width:0;transition:width .5s cubic-bezier(.2,.8,.2,1)}
 
 main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 24px}
-.stage{max-width:620px;width:100%;text-align:center}
+.stage{max-width:718px;width:100%;text-align:center}
 .kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--rec);
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace;margin-bottom:22px}
 .kicker:after{content:"";display:block;width:34px;height:2px;background:var(--rec);
@@ -36,10 +38,10 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 
 .intro li{padding:3px 0}
 
 footer{border-top:1px solid var(--line);background:var(--card)}
-.footin{max-width:680px;margin:0 auto;padding:22px 24px calc(22px + env(safe-area-inset-bottom,0px));
+.footin{max-width:718px;margin:0 auto;padding:22px 24px calc(22px + env(safe-area-inset-bottom,0px));
   display:flex;flex-direction:column;align-items:center;gap:14px}
 canvas{width:100%;max-width:340px;height:40px;display:none}
-button{font:inherit;font-size:15px;font-weight:600;border:0;border-radius:999px;
+button{font:inherit;font-size:15px;font-weight:600;border:0;border-radius:var(--r);
   padding:14px 34px;cursor:pointer;background:var(--accent);color:#fff;transition:.15s;
   box-shadow:0 1px 2px rgba(0,0,0,.08)}
 button:hover{transform:translateY(-1px)}
