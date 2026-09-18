@@ -7,3 +7,5 @@ __pycache__/
 probe_*.py
 smoke_test.py
 example_outputs/*.wav
+web/audio/
+web/session.json

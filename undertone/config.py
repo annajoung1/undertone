@@ -12,10 +12,12 @@ PRODUCT = {
     "item": "10-sheet hydrating sheet mask pack",
     "seeded_for": "2 weeks",
     "price_being_tested_usd": 32,      # 10장 팩 = 장당 $3.2
-    "category_anchors_usd": {          # 미국 실제 시장가
+    "category_anchors_usd": {          # 미국 실제 시장가 (2026)
+        "Rhode Glazing Milk": 32,
+        "Rhode Peptide Lip Treatment": 18,
+        "Summer Fridays Jet Lag Mask": 49,
+        "Laneige Water Sleeping Mask": 34,
         "Mediheal (per sheet)": 3,
-        "Abib (per sheet)": 4,
-        "Dr. Jart+ (per sheet)": 7,
     },
 }
 
@@ -23,20 +25,23 @@ PRODUCT = {
 # 순서가 중요하다. 행동 -> 만족 -> 기대차이 -> (조건부) 가격 -> 비교
 # 가격은 만족도에 종속된 질문이다. 앞에 두면 답이 오염된다.
 GUIDE = [
+    # 각 항목은 질문 "하나"여야 한다. 여러 개를 적으면 인터뷰어가 전부 이어서 묻는다.
     dict(id="behavior", intent=(
-        "Ask how they actually used the masks over the two weeks — when, how often, "
-        "and whether they finished the pack. Ask for specifics, not opinions.")),
+        "Ask how many of the ten masks they actually used. Nothing else.")),
     dict(id="satisfaction", intent=(
-        "Ask whether they liked it. Keep it open and easy to answer."),
+        "Ask if they liked it. Keep it open and easy."),
         probe_target=True),
     dict(id="expectation", intent=(
-        "Ask what was different from what they expected — better or worse.")),
+        "Ask what surprised them about it, good or bad.")),
     dict(id="willingness", intent=(
-        "Ask what they would actually pay for a 10-pack, and whether they'd buy it "
-        "with their own money."), conditional_on_satisfaction=True),
+        "Ask what they would pay for the 10-pack with their own money."),
+        conditional_on_satisfaction=True),
+    dict(id="alternatives", intent=(
+        "Ask what skincare they buy for themselves when they treat themselves. "
+        "Let them name the brand. Do not suggest one.")),
     dict(id="comparison", intent=(
-        "Ask what they would compare it to, and use the lookup_competitor tool to "
-        "check that competitor's real current US price before responding."),
+        "Look up the real US price of the brand they just named, then ask them to "
+        "pick one: this 10-pack, or that product."),
         wants_tool=True),
 ]
 

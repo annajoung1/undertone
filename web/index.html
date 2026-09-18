@@ -1,0 +1,182 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Product Interview</title>
+<style>
+:root{--bg:#fbfaf9;--fg:#1c1917;--mut:#57534e;--dim:#a8a29e;--line:#e7e5e4;
+  --card:#fff;--accent:#1c1917;--rec:#dc2626}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);min-height:100vh;
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Inter",sans-serif;
+  padding-top:env(safe-area-inset-top,0px);display:flex;flex-direction:column}
+.top{border-bottom:1px solid var(--line);background:var(--card)}
+.topin{max-width:680px;margin:0 auto;padding:16px 24px;display:flex;
+  align-items:center;justify-content:space-between;gap:16px}
+.brand{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.brand span{color:var(--dim);font-weight:400;margin-left:8px}
+.prog{font-size:12.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+.bar{height:2px;background:var(--line)}
+.fill{height:100%;background:var(--accent);width:0;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 24px}
+.stage{max-width:620px;width:100%;text-align:center}
+.kicker{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);
+  margin-bottom:20px}
+.q{font-size:29px;line-height:1.35;letter-spacing:-.025em;font-weight:600;
+  min-height:80px;animation:up .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.status{margin-top:26px;color:var(--mut);font-size:14.5px;min-height:24px}
+
+.intro{max-width:520px;margin:0 auto;text-align:left}
+.intro h2{font-size:24px;letter-spacing:-.02em;margin:0 0 14px}
+.intro p{color:var(--mut);font-size:15px;margin:0 0 12px}
+.intro ul{color:var(--mut);font-size:14.5px;padding-left:20px;margin:16px 0 0}
+.intro li{padding:3px 0}
+
+footer{border-top:1px solid var(--line);background:var(--card)}
+.footin{max-width:680px;margin:0 auto;padding:22px 24px calc(22px + env(safe-area-inset-bottom,0px));
+  display:flex;flex-direction:column;align-items:center;gap:14px}
+canvas{width:100%;max-width:340px;height:40px;display:none}
+button{font:inherit;font-size:15px;font-weight:600;border:0;border-radius:999px;
+  padding:14px 34px;cursor:pointer;background:var(--accent);color:#fff;transition:.15s;
+  box-shadow:0 1px 2px rgba(0,0,0,.08)}
+button:hover{transform:translateY(-1px)}
+button:disabled{opacity:.28;cursor:default;transform:none}
+button.rec{background:var(--rec)}
+button.rec:before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;
+  background:#fff;margin-right:9px;vertical-align:1px}
+button.stop{background:#fff;color:#1c1917;border:1.5px solid var(--line)}
+.hint{color:var(--dim);font-size:12.5px}
+.done{font-size:20px;font-weight:600;letter-spacing:-.02em}
+.done+p{color:var(--mut);font-size:14.5px;margin-top:10px}
+@media(prefers-color-scheme:dark){:root{--bg:#0c0a09;--fg:#fafaf9;--mut:#a8a29e;
+  --dim:#78716c;--line:#292524;--card:#161211;--accent:#fafaf9}
+  button{color:#0c0a09} button.rec{color:#fff} button.stop{background:#161211;color:#fafaf9}}
+</style>
+
+<div class="top">
+  <div class="topin">
+    <div class="brand">Product Interview<span id="who">Sheet mask study</span></div>
+    <div class="prog" id="prog"></div>
+  </div>
+  <div class="bar"><div class="fill" id="fill"></div></div>
+</div>
+
+<main><div class="stage" id="stage">
+  <div class="intro">
+    <h2>Thanks for trying our masks.</h2>
+    <p>This is a short voice interview — about five minutes. An interviewer will ask you a
+       few questions out loud, and you answer by recording your voice.</p>
+    <p>There are no right answers. Honest is more useful than nice.</p>
+    <ul>
+      <li>Make sure your sound is on</li>
+      <li>You'll be asked for microphone access</li>
+      <li>Take as long as you want on each answer</li>
+    </ul>
+  </div>
+</div></main>
+
+<footer><div class="footin">
+  <canvas id="wave"></canvas>
+  <button id="btn">Begin interview</button>
+  <div class="hint" id="hint">Your answers are recorded for the brand that sent you this product.</div>
+</div></footer>
+
+<script>
+const SR=24000,$=s=>document.querySelector(s);
+let ws,ac,node,zero,analyser,chunks=[],recording=false,raf,n=0;
+const TOTAL=6;
+const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+function showQuestion(text){
+  n++;
+  $("#prog").textContent=`Question ${Math.min(n,TOTAL)} of ${TOTAL}`;
+  $("#fill").style.width=(Math.min(n,TOTAL)/TOTAL*100)+"%";
+  $("#stage").innerHTML=`<div class="kicker">Interviewer</div>
+    <div class="q">${esc(text)}</div><div class="status" id="st"></div>`;
+}
+const setStatus=t=>{const e=$("#st");if(e)e.textContent=t;};
+
+function playPCM(b64){return new Promise(res=>{
+  if(!b64)return res();
+  const raw=atob(b64),len=raw.length/2,i16=new Int16Array(len);
+  for(let i=0;i<len;i++)i16[i]=(raw.charCodeAt(i*2)|(raw.charCodeAt(i*2+1)<<8))<<16>>16;
+  const buf=ac.createBuffer(1,len,SR),ch=buf.getChannelData(0);
+  for(let i=0;i<len;i++)ch[i]=i16[i]/32768;
+  const s=ac.createBufferSource();s.buffer=buf;s.connect(ac.destination);
+  s.onended=res;s.start();});}
+
+async function initMic(){
+  const ms=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,
+    // 운율을 측정하려면 브라우저의 자동 보정을 전부 꺼야 한다.
+    // autoGainControl 은 음량을 평준화해서 우리가 재려는 신호 자체를 지운다.
+    echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+  const src=ac.createMediaStreamSource(ms);
+  analyser=ac.createAnalyser();analyser.fftSize=1024;src.connect(analyser);
+  node=ac.createScriptProcessor(4096,1,1);
+  node.onaudioprocess=e=>{
+    if(!recording)return;
+    const f=e.inputBuffer.getChannelData(0),i16=new Int16Array(f.length);
+    for(let i=0;i<f.length;i++){const v=Math.max(-1,Math.min(1,f[i]));
+      i16[i]=v<0?v*0x8000:v*0x7fff;}
+    chunks.push(i16);};
+  src.connect(node);
+  zero=ac.createGain();zero.gain.value=0;node.connect(zero);zero.connect(ac.destination);
+}
+const cv=$("#wave"),cx=cv.getContext("2d");
+function draw(){
+  raf=requestAnimationFrame(draw);
+  const w=cv.width=cv.clientWidth*2,h=cv.height=80;
+  const d=new Uint8Array(analyser.frequencyBinCount);analyser.getByteTimeDomainData(d);
+  cx.clearRect(0,0,w,h);cx.lineWidth=3;cx.lineCap="round";
+  cx.strokeStyle=getComputedStyle(document.body).getPropertyValue("--rec")||"#dc2626";
+  cx.beginPath();
+  for(let i=0;i<d.length;i++){const x=i/d.length*w,y=h/2+((d[i]-128)/128)*(h/2-6);
+    i?cx.lineTo(x,y):cx.moveTo(x,y);}
+  cx.stroke();
+}
+function takePCM(){
+  const len=chunks.reduce((a,c)=>a+c.length,0),all=new Int16Array(len);
+  let o=0;for(const c of chunks){all.set(c,o);o+=c.length;}chunks=[];
+  const b=new Uint8Array(all.buffer);let s="";
+  for(let i=0;i<b.length;i+=8192)s+=String.fromCharCode.apply(null,b.subarray(i,i+8192));
+  return btoa(s);
+}
+
+const btn=$("#btn"),hint=$("#hint");
+btn.onclick=async()=>{
+  if(btn.dataset.mode==="record"){
+    chunks=[];recording=true;btn.className="stop";btn.textContent="Done answering";
+    btn.dataset.mode="stop";setStatus("Listening…");cv.style.display="block";draw();
+    hint.textContent="Take your time.";return;}
+  if(btn.dataset.mode==="stop"){
+    recording=false;cancelAnimationFrame(raf);cv.style.display="none";
+    ws.send(JSON.stringify({type:"answer_audio",audio:takePCM()}));
+    btn.disabled=true;btn.className="";btn.textContent="Thanks";btn.dataset.mode="";
+    setStatus("Got it — one moment");hint.textContent="";return;}
+  ac=new(window.AudioContext||window.webkitAudioContext)({sampleRate:SR});
+  try{await initMic();}catch(e){hint.textContent="Microphone access is needed to continue.";return;}
+  ws=new WebSocket("ws://localhost:8765");
+  ws.onopen=()=>ws.send(JSON.stringify({type:"start"}));
+  ws.onmessage=onMsg;
+  ws.onerror=()=>{hint.textContent="Could not connect.";btn.disabled=false;};
+  btn.disabled=true;btn.textContent="Starting…";hint.textContent="";
+};
+
+async function onMsg(e){
+  const m=JSON.parse(e.data);
+  if(m.type==="question")showQuestion(m.text);
+  else if(m.type==="listen"){
+    setStatus("");await playPCM(m.audio);
+    btn.disabled=false;btn.className="rec";btn.textContent="Record answer";
+    btn.dataset.mode="record";hint.textContent="Press to start, press again when you're finished.";}
+  else if(m.type==="generating_report"||m.type==="report_ready"){
+    $("#prog").textContent="";$("#fill").style.width="100%";
+    $("#stage").innerHTML=`<div class="done">That's everything — thank you.</div>
+      <p>Your answers have been sent to the brand.</p>`;
+    btn.style.display="none";
+    hint.textContent="You can close this window.";}
+  else if(m.type==="error"){setStatus("Something went wrong.");btn.disabled=false;
+    btn.textContent="Retry";}
+}
+</script>

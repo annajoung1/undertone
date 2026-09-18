@@ -62,30 +62,24 @@ async def build(rec, path):
     answers = [t for t in turns if t["speaker"] == "respondent" and t["text"]]
     tools = [tc for t in turns for tc in t["tool_calls"]]
 
-    # 1) 답변을 한국어로 옮긴다 (측정값은 건드리지 않는다)
-    ko = await _ask_text(
-        "You translate US consumer research answers into natural Korean for a Korean brand "
-        "founder. Use ONLY Korean characters — never Chinese, Russian or Japanese. "
-        "Output ONLY a JSON array of Korean strings, same order, same count. No prose.",
+    # 번역과 종합 판단을 동시에 돌린다 (순차로 하면 두 배 걸린다)
+    ko_task = _ask_text(
+        "You clean up verbatim consumer research answers. Fix transcription errors and "
+        "obvious mis-hearings. Output ENGLISH ONLY — if an answer came back in another "
+        "language it was mis-transcribed, so render it in natural American English. "
+        "Do not add, remove or soften anything the person said. "
+        "Output ONLY a JSON array of strings, same order, same count. No prose.",
         json.dumps([t["text"] for t in answers], ensure_ascii=False))
-    try:
-        ko_list = json.loads(ko[ko.index("["):ko.rindex("]") + 1])
-    except Exception:
-        ko_list = [""] * len(answers)
-    if len(ko_list) != len(answers):
-        ko_list = (ko_list + [""] * len(answers))[:len(answers)]
-    for t, k in zip(answers, ko_list):
-        t["ko"] = _clean(k)
 
-    # 2) 종합 판단 — 숫자는 이미 계산된 것만 넣어서 해석만 시킨다
-    verdict = await _ask_text(
-        "You write consumer research findings in Korean for a Korean brand founder.\n"
+    verdict_task = _ask_text(
+        "You write consumer research findings for a brand founder deciding whether to "
+        "launch in the US.\n"
         "HARD RULES:\n"
-        "- Write ONLY in Korean. Never use Chinese, Russian, or Japanese characters. "
-        "English product names are fine.\n"
-        "- This was ONE respondent. Never write '소비자들은' or any plural. Write '응답자는'.\n"
-        "- Quote the respondent's actual words when you make a claim.\n"
-        "- Be specific and concrete. No generic advice like '가격 전략을 수립해야 한다'.\n"
+        "- Write ONLY in English. Plain, direct, no consultant filler.\n"
+        "- This was ONE respondent. Never write 'consumers' or any plural. Write "
+        "'the participant'.\n"
+        "- Quote the participant's actual words when you make a claim.\n"
+        "- Be specific and concrete. No generic advice like 'revisit your pricing strategy'.\n"
         "- Never invent numbers. Only use numbers given to you.\n"
         "\n"
         "Output exactly three sections separated by a line containing only '---':\n"
@@ -100,6 +94,17 @@ async def build(rec, path):
         f"Tone-word mismatches detected: {len(mismatches)}\n"
         f"Competitor prices looked up: {json.dumps(tools, ensure_ascii=False)[:500]}\n\n"
         f"Transcript with measured tone scores:\n{_transcript_block(turns)}")
+
+    ko, verdict = await asyncio.gather(ko_task, verdict_task)
+
+    try:
+        ko_list = json.loads(ko[ko.index("["):ko.rindex("]") + 1])
+    except Exception:
+        ko_list = [""] * len(answers)
+    if len(ko_list) != len(answers):
+        ko_list = (ko_list + [""] * len(answers))[:len(answers)]
+    for t, k in zip(answers, ko_list):
+        t["ko"] = _clean(k)
 
     parts = [_clean(p.strip()) for p in verdict.split("---")] if verdict else ["", "", ""]
     parts += [""] * (3 - len(parts))

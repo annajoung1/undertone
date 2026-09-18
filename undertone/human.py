@@ -3,7 +3,7 @@
 시뮬레이션 응답자와 동일한 인터페이스(hear_audio -> Turn)를 제공하므로
 오케스트레이터는 상대가 사람인지 AI인지 몰라도 된다.
 """
-import io, json, os, urllib.request, wave
+import io, json, os, re, urllib.request, wave
 
 import numpy as np
 import sounddevice as sd
@@ -27,16 +27,23 @@ def _transcribe(pcm: bytes) -> str:
         body.append(head.encode() + b"\r\n" + (val if isinstance(val, bytes) else val.encode()) + b"\r\n")
     part("file", buf.getvalue(), "a.wav", "audio/wav")
     part("model", "higgs-stt-3.1")
+    part("language", "en")          # 중국어로 잘못 전사되는 것 방지
+    part("response_format", "json")
     body.append(f"--{boundary}--\r\n".encode())
     req = urllib.request.Request(
         "https://api.boson.ai/v1/audio/transcriptions", data=b"".join(body),
         headers={"Authorization": f"Bearer {os.environ['BOSON_API_KEY']}",
                  "Content-Type": f"multipart/form-data; boundary={boundary}"})
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            return json.loads(r.read()).get("text", "").strip()
+        with urllib.request.urlopen(req, timeout=45) as r:
+            txt = json.loads(r.read()).get("text", "").strip()
+        # 한자/가나가 섞여 오면 전사가 언어를 오인한 것 — 버린다
+        if txt and re.search(r"[\u3040-\u30ff\u4e00-\u9fff]", txt):
+            txt = re.sub(r"[\u3040-\u30ff\u4e00-\u9fff]+", "", txt).strip()
+        return txt
     except Exception as e:
-        return f"[전사 실패: {e}]"
+        print(f"  [STT 실패] {type(e).__name__}: {e}", flush=True)
+        return ""
 
 
 class HumanRespondent:

@@ -19,7 +19,11 @@ themselves. Your job is to get honest answers, not pleasant ones.
 Rules:
 - You will receive directives wrapped in [ ]. NEVER read a directive aloud and never \
 mention that you received one. Just speak the question naturally to the participant.
-- Ask exactly ONE question at a time. Keep it under 25 words. Conversational, not formal.
+- Ask exactly ONE question. ONE sentence. ONE question mark. Under 18 words.
+- If the directive seems to contain more than one question, ask only the FIRST one.
+- NEVER ask two things in one turn. Never add "and also...", "as well as...", or a second
+  clause that asks something new. If you are tempted to ask two things, ask the first only.
+- Do not preface your question with commentary. Just ask it.
 - Never summarize what they said back to them. Never thank them more than once.
 - Never ask about price until you are directed to.
 - Speak natural American English.
@@ -45,13 +49,15 @@ class Recorder:
         ))
 
 
-async def run(on_event=lambda *a, **k: None, live=False) -> Recorder:
+async def run(on_event=lambda *a, **k: None, live=False, respondent=None) -> Recorder:
     rec = Recorder()
     satisfied = None
     baseline = signals.Baseline(config.ENGAGEMENT_DROP)
 
     itv = Session("interviewer", INTERVIEWER_INSTRUCTIONS, tools=[market.TOOL_SPEC])
-    if live:
+    if respondent is not None:
+        resp = respondent
+    elif live:
         from human import HumanRespondent
         resp = HumanRespondent()
     else:
@@ -64,8 +70,8 @@ async def run(on_event=lambda *a, **k: None, live=False) -> Recorder:
         for step in config.GUIDE:
             if step.get("conditional_on_satisfaction") and satisfied is False:
                 directive = ("[They were NOT satisfied. Do not ask what they would pay. "
-                             "Instead ask what would have to change for them to buy it. "
-                             "One question, under 25 words.]")
+                             "Ask instead what would have to change for them to buy it. "
+                             "ONE question, under 18 words.]")
             else:
                 directive = f"[Ask this now: {step['intent']}]"
                 if step.get("wants_tool"):
