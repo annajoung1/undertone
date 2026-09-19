@@ -11,14 +11,14 @@ from webrespondent import WebRespondent
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "example_outputs")
-WEB = os.path.join(HERE, "web")
+WEB = os.path.join(HERE, "docs")
 AUDIO = os.path.join(WEB, "audio")
 HTTP_PORT, WS_PORT = 8000, 8765
 
 
 def serve_static():
     h = functools.partial(http.server.SimpleHTTPRequestHandler,
-                          directory=os.path.join(HERE, "web"))
+                          directory=os.path.join(HERE, "docs"))
     socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(("", HTTP_PORT), h) as s:
         s.serve_forever()

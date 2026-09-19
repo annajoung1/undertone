@@ -4,8 +4,9 @@ __pycache__/
 .env
 probe_*.py
 smoke_test.py
-web/session.json
 
 # 실제 실행 결과물은 커밋한다 — 심사위원이 클론 없이 볼 수 있어야 한다
 !example_outputs/
 mic_test.py
+
+# docs/ is the published site. Its session.json IS the frozen demo data — it must ship.
