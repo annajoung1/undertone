@@ -117,8 +117,8 @@ async def run_interview(ws, resp):
 async def main():
     threading.Thread(target=serve_static, daemon=True).start()
     print(f"\n  \033[1mUndertone\033[0m")
-    print(f"  open  \033[36mhttp://localhost:{HTTP_PORT}\033[0m            (interview)")
-    print(f"  open  \033[36mhttp://localhost:{HTTP_PORT}/report.html\033[0m  (founder report)\n")
+    print(f"  open  \033[36mhttp://localhost:{HTTP_PORT}/interview.html\033[0m  (interview)")
+    print(f"  open  \033[36mhttp://localhost:{HTTP_PORT}\033[0m                 (founder report)\n")
     async with websockets.serve(handler, "localhost", WS_PORT, max_size=None):
         await asyncio.Future()
 
