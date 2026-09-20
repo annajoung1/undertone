@@ -138,7 +138,7 @@ h2{font:600 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
 
   <div class="card ab">
     <h2>What the score hears</h2>
-    <p class="abq">Twenty seconds. The same person, the same sentence, recorded twice.</p>
+    <p class="abq">Eight seconds. The same person, the same sentence, recorded twice.</p>
     <p class="abl">&ldquo;Yeah, it was nice. I liked it.&rdquo;</p>
 
     <div class="row">
@@ -146,7 +146,7 @@ h2{font:600 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
       <div class="rowin">
         <button class="play" onclick="play(this,'demo/human_flat.wav')">
           <span class="tri"></span><span>Play recording</span></button>
-        <div class="m"><div class="g"><div class="gb" data-w="75" style="width:0%;background:#b45309"></div></div><span class="gv" style="color:#b45309">75</span></div>
+        <div class="m"><div class="g"><div class="gb" data-w="60" style="width:0%;background:#b45309"></div></div><span class="gv" style="color:#b45309">60</span></div>
       </div>
     </div>
     <div class="row">
@@ -154,13 +154,17 @@ h2{font:600 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
       <div class="rowin">
         <button class="play" onclick="play(this,'demo/human_warm.wav')">
           <span class="tri"></span><span>Play recording</span></button>
-        <div class="m"><div class="g"><div class="gb" data-w="96" style="width:0%;background:#15803d"></div></div><span class="gv" style="color:#15803d">96</span></div>
+        <div class="m"><div class="g"><div class="gb" data-w="76" style="width:0%;background:#15803d"></div></div><span class="gv" style="color:#15803d">76</span></div>
       </div>
     </div>
 
-    <p class="abf">Identical words, <b>21 points</b> apart. A transcript cannot tell these two
-      answers apart &mdash; every text-based research tool would record both as
-      &ldquo;liked it.&rdquo; That gap is the product.</p>
+    <p class="abf">Identical words, <b>16 points</b> apart. A transcript cannot tell them apart
+      at all &mdash; every text-based research tool records both as &ldquo;liked it.&rdquo;</p>
+    <p class="abf">The honest part is <i>where</i> the gap comes from. On <b>pitch range</b>, the
+      axis this engine weights most heavily, the flat take actually scores <i>higher</i>: 17.1
+      semitones against 12.7. This speaker flattens by slowing down, not by losing pitch. A single
+      axis would have called the flat take the livelier one. That is why every answer is measured
+      on several axes against that same speaker, never against one fixed scale.</p>
   </div>
 
   <div class="rule">The report the founder receives</div>

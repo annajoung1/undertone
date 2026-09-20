@@ -50,15 +50,19 @@ def classify_words(text: str) -> dict:
 class Baseline:
     """A speaker's own baseline.
 
-    Different people go flat along different axes. Both of these were measured, not assumed:
+    Different people go flat along different axes. All of these were measured, not assumed:
       - Higgs TTS separated on pitch range      (15.1 st -> 7.5 st)
       - A real human separated on speaking rate (2.07 w/s -> 1.21 w/s, while their
         pitch range actually went UP)
-    Watching a single axis therefore misses people. Any axis that falls well below this
+      - The same pattern again, 2026-09-19, on the pair committed in example_outputs/:
+        2.25 w/s -> 1.41 w/s while pitch range rose 12.7 st -> 17.1 st. Reproducible
+        from the checked-in .wav files, so this one you can verify yourself.
+    Watching a single axis therefore misses people, and would have called the flat take
+    the livelier one in two of the three cases above. Any axis that falls well below this
     speaker's own peak counts as a drop.
 
-    This is also why no absolute threshold is used anywhere. A score of 75 is not low. It
-    is a signal only because it sits 21 points under what this particular person normally
+    This is also why no absolute threshold is used anywhere. A score of 60 is not low. It
+    is a signal only because it sits 16 points under what this particular person normally
     sounds like.
     """
 

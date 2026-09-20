@@ -60,9 +60,13 @@ and the tone was the signal.
 | `engagement` | Weighted composite: pitch 55%, rate 25%, pause 20% |
 
 Pitch range carries the most weight because F0 variability is the most stable prosodic
-correlate of engagement, and because it was the only metric that separated reliably in our
-own measurements (15.1 st when instructed to sound excited vs 7.5 st when instructed to
-sound bored).
+correlate of engagement across speakers.
+
+**It is not always the axis that moves.** In `example_outputs/`, the same person reading the
+same line twice separates by 16 points — and on pitch range the flat take scores *higher*
+(17.1 st vs 12.7 st). That speaker flattens by slowing down instead. A single-axis detector
+would have read it backwards, which is why the composite is compared to each speaker's own
+baseline across all three axes rather than to a fixed scale.
 
 **Undertone does not claim to detect emotion.** It reports two independent observations —
 what the words say, and what the delivery measures — and flags only where they disagree.

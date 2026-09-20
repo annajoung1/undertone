@@ -89,9 +89,14 @@ def analyze(pcm: bytes, word_count: int) -> Prosody:
     # about emotion.
     #
     # Weighting rationale: F0 variability is the most stable prosodic correlate of arousal
-    # and engagement in the speech literature, and it was the only metric that separated
-    # reliably in our own measurements (15.1 st when a speaker was told to sound excited
+    # and engagement in the speech literature, and it separated synthesized speech most
+    # reliably in our own measurements (15.1 st when the model was told to sound excited
     # vs 7.5 st when told to sound bored).
+    #
+    # It does NOT always move for humans. On the pair in example_outputs/, the flat take
+    # scores HIGHER on pitch range (17.1 st vs 12.7 st) and separates on rate instead.
+    # This is exactly why the composite is read against a per-speaker baseline on every
+    # axis (see signals.Baseline) rather than thresholded on pitch alone.
     #
     # Speaking rate is computed over total duration, not voiced duration. Measured over
     # voiced frames only, a hesitant utterance paradoxically scores as fast.
