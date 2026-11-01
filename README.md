@@ -43,7 +43,7 @@ measurement back into the agent's behavior.
 | **Speech-to-speech, not a pipeline** | The interviewer's audio goes straight into the respondent's ears as audio. Nothing is transcribed in between. |
 | **Tone is the control signal** | When a respondent's words are positive but their delivery is flat, Undertone automatically asks a harder follow-up. |
 | **Korean in, English out, Korean back** | One model, one session. The founder never leaves Korean. |
-| **Measured latency: 461–929 ms** | Fast enough that the interviewer can follow up without the conversation going dead. |
+| **Measured latency to first audio: 525–649 ms** | Fast enough that the interviewer can follow up without the conversation going dead. |
 
 **A speech-to-text pipeline cannot do this.** By the time text arrives, the tone is gone —
 and the tone was the signal.
